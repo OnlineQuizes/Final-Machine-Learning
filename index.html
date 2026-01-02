@@ -1,0 +1,2616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']],
+      displayMath: [['$$', '$$']],
+    }
+  };
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning Final Exam</title>
+    <style>
+    :root {
+        --bg-color: #f8fafc;
+        --text-color: #161b24;
+        --primary-color: #2a676f;
+        --secondary-color: #3a8893;
+        --card-bg: rgba(255, 255, 255, 0.95);
+        --border-color: rgba(224, 224, 224, 0.7);
+        --option-bg: #f8fafc;
+        --option-hover-bg: #e2e8f0;
+        --quiz-header-bg: linear-gradient(135deg, #2a676f 0%, #3a8893 100%);
+        --correct-bg: #e8f5e9;
+        --correct-border: #43a047;
+        --incorrect-bg: #ffebee;
+        --incorrect-border: #e53935;
+        --gradient-color: rgba(42, 103, 111, 0.03);
+        --background-pattern: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%232a676f' fill-opacity='0.05'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/svg%3E");
+        --slide-bg: #ffffff;
+        --slide-header: #2a676f;
+        --slide-border: #d1d5db;
+        --grammar-bg: #f1f5f9;
+        --grammar-border: #cbd5e1;
+        --glass-bg: rgba(42, 103, 111, 0.1);
+        --glass-border: rgba(42, 103, 111, 0.2);
+        --glass-shadow: 0 4px 20px rgba(42, 103, 111, 0.15);
+        --button-primary-bg: linear-gradient(135deg, #2a676f, #3a8893);
+        --button-secondary-bg: linear-gradient(135deg, #a98a50, #c5a66a);
+        --code-bg: #f1f5f9;
+        --code-text: #1e293b;
+        --expl-bg: #fffde7;
+        --expl-border: #fbc02d;
+        --expl-text: #5d4037;
+    }
+
+    [data-theme="dark"] {
+        --bg-color: #1a202c;
+        --text-color: #e2e8f0;
+        --primary-color: #38b2ac;
+        --secondary-color: #2a676f;
+        --card-bg: rgba(26, 32, 44, 0.95);
+        --border-color: rgba(74, 85, 104, 0.7);
+        --option-bg: rgba(45, 55, 72, 0.5);
+        --option-hover-bg: rgba(66, 153, 225, 0.1);
+        --quiz-header-bg: linear-gradient(135deg, #2a676f 0%, #3a8893 100%);
+        --correct-bg: rgba(72, 187, 120, 0.1);
+        --correct-border: #48bb78;
+        --incorrect-bg: rgba(245, 101, 101, 0.1);
+        --incorrect-border: #f56565;
+        --gradient-color: transparent;
+        --background-pattern: none;
+        --slide-bg: #2d3748;
+        --slide-header: #38b2ac;
+        --slide-border: #4a5568;
+        --grammar-bg: #4a5568;
+        --grammar-border: #718096;
+        --glass-bg: rgba(56, 178, 172, 0.1);
+        --glass-border: rgba(56, 178, 172, 0.2);
+        --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        --button-primary-bg: linear-gradient(135deg, #38b2ac, #2a676f);
+        --button-secondary-bg: linear-gradient(135deg, #f6ad55, #ed8936);
+        --code-bg: #0f172a;
+        --code-text: #e2e8f0;
+        --expl-bg: rgba(251, 192, 45, 0.15);
+        --expl-border: #fdd835;
+        --expl-text: #fff9c4;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    body {
+        background-color: var(--bg-color);
+        background-image: 
+            linear-gradient(to right, var(--gradient-color) 1px, transparent 1px),
+            linear-gradient(to bottom, var(--gradient-color) 1px, transparent 1px),
+            var(--background-pattern);
+        background-size: 
+            40px 40px,
+            40px 40px,
+            52px 26px;
+        color: var(--text-color);
+        transition: background-color 0.3s ease, color 0.3s ease;
+        line-height: 1.6;
+        min-height: 100vh;
+    }
+
+    .quiz-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: var(--card-bg);
+        border-radius: 20px;
+        box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+        border: 1px solid var(--border-color);
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .quiz-container::before {
+        content: '💻⚡🔧';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        font-size: 120px;
+        opacity: 0.05;
+        transform: rotate(15deg);
+        z-index: 0;
+    }
+
+
+    .quiz-header {
+        text-align: center;
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        color: white;
+        padding: 1.5rem;
+        background: var(--quiz-header-bg);
+        border-radius: 15px;
+        box-shadow: 0 6px 20px rgba(42, 103, 111, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .quiz-header::after {
+        content: '📘';
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0.15;
+        font-size: 3rem;
+    }
+
+    .quiz-subtitle {
+        text-align: center;
+        font-size: 1.2rem;
+        color: var(--text-color);
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background: var(--glass-bg);
+        border-radius: 10px;
+        border-left: 5px solid var(--primary-color);
+    }
+
+    .controls {
+        text-align: center;
+        margin-bottom: 2rem;
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 1.5rem;
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        border: 1px solid var(--glass-border);
+        box-shadow: var(--glass-shadow);
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.9rem 1.8rem;
+        background: var(--button-primary-bg);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        gap: 8px;
+        box-shadow: 0 4px 12px rgba(42, 103, 111, 0.2);
+        position: relative;
+        overflow: hidden;
+        min-width: 160px;
+    }
+
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: 0.5s;
+    }
+
+    .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(42, 103, 111, 0.3);
+    }
+
+    .btn:hover::before {
+        left: 100%;
+    }
+
+    .btn-secondary {
+        background: var(--button-secondary-bg);
+    }
+
+    .btn-icon {
+        font-size: 1.1rem;
+    }
+
+    .question-group {
+        margin-bottom: 3rem;
+        padding: 2rem;
+        background: var(--card-bg);
+        border: 2px solid var(--primary-color);
+        border-radius: 20px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .grouped-questions .question {
+        margin-bottom: 1.5rem;
+        padding: 1.8rem;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 15px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .grouped-questions .question:hover {
+        transform: translateX(5px);
+        border-color: var(--primary-color);
+        box-shadow: 6px 6px 20px rgba(42, 103, 111, 0.1);
+    }
+
+    .question-group::before {
+        content: '📚';
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 2.5rem;
+        opacity: 0.1;
+    }
+
+    .group-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 3px dashed var(--primary-color);
+    }
+
+    .group-header h3 {
+        color: var(--primary-color);
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+
+    .grouped-questions {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .grouped-questions .question h4 {
+        color: var(--primary-color) !important;
+        font-size: 1.3rem !important;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        padding-left: 10px;
+        border-left: 4px solid var(--primary-color);
+    }
+
+    .question {
+        margin-bottom: 2.5rem;
+        padding: 1.8rem;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 15px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: visible;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .question:hover {
+        transform: translateX(5px);
+        border-color: var(--primary-color);
+        box-shadow: 6px 6px 20px rgba(42, 103, 111, 0.1);
+    }
+
+    .question h3 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+        position: relative;
+        padding-left: 10px;
+        border-left: 4px solid var(--primary-color);
+    }
+
+    .options label {
+        display: flex;
+        align-items: center;
+        padding: 1.1rem;
+        margin: 0.8rem 0;
+        background: var(--option-bg);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        gap: 12px;
+        border: 2px solid transparent;
+        position: relative;
+        z-index: 2;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .options label:hover {
+        background: var(--option-hover-bg);
+        transform: translateX(5px);
+        box-shadow: 4px 4px 12px rgba(42, 103, 111, 0.1);
+        border-color: var(--primary-color);
+    }
+
+    .options input[type="radio"] {
+        margin-left: 1rem;
+        transform: scale(1.3);
+        accent-color: var(--primary-color);
+        cursor: pointer;
+    }
+
+/* هذا الكود يستهدف حاوية المعادلات فقط في الشاشات الصغيرة */
+@media (max-width: 600px) {
+    /* تصغير حجم المعادلة فقط */
+    mjx-container {
+        font-size: 0.8em !important; /* تصغير المعادلة بنسبة 20% لتناسب العرض */
+        max-width: 100%;
+        overflow-x: auto; /* في حال كانت المعادلة ضخمة جداً يظهر سكرول بسيط بدلاً من الخروج من الإطار */
+        overflow-y: hidden;
+        padding: 5px 0;
+    }
+
+    /* ضمان أن الخيار (label) يتعامل مع النص والمعادلة بشكل سليم */
+    .options label {
+        display: flex;
+        align-items: center; /* المحاذاة في المنتصف */
+        flex-wrap: nowrap; /* منع الراديو بوتون من النزول لسطر منفصل */
+    }
+
+    /* جعل النص القابل للالتفاف يأخذ المساحة المتبقية */
+    .options input[type="radio"] {
+        flex-shrink: 0; /* منع تصغير زر الاختيار */
+    }
+}
+
+
+
+    .answer-box {
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+        padding: 1.2rem;
+        border-radius: 12px;
+        display: none;
+        animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        position: relative;
+        z-index: 2;
+        border-left: 5px solid;
+        white-space: normal;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .correct {
+        background: var(--correct-bg);
+        border-color: var(--correct-border);
+        color: var(--text-color);
+    }
+
+    .incorrect {
+        background: var(--incorrect-bg);
+        border-color: var(--incorrect-border);
+        color: var(--text-color);
+    }
+
+    .code-block, .formula-block, .graph-block {
+        background: var(--code-bg) !important;
+        color: var(--code-text) !important;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        font-family: 'Consolas', 'Courier New', monospace;
+    }
+
+    .code-block pre, .formula-block pre, .graph-block pre {
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+        word-break: break-word !important;
+        overflow-x: hidden;
+        margin: 0;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .formula-block {
+        background: #fff8e1 !important;
+        border-color: #ffd54f;
+    }
+
+    .graph-block {
+        background: #e8f5e9 !important;
+        border-color: #81c784;
+    }
+
+    [data-theme="dark"] .formula-block {
+        background: rgba(255, 193, 7, 0.1) !important;
+        border-color: #ffb300;
+    }
+
+    [data-theme="dark"] .graph-block {
+        background: rgba(76, 175, 80, 0.1) !important;
+        border-color: #4caf50;
+    }
+
+    .explanation-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        margin-top: 8px;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .btn-explanation {
+        background: var(--glass-bg);
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+        padding: 6px 14px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .explanation-content {
+        background: var(--expl-bg);
+        border-left: 4px solid var(--expl-border);
+        color: var(--expl-text);
+        border-radius: 8px;
+        padding: 15px;
+        width: 100%;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        font-size: 0.95rem;
+        line-height: 1.6;
+        position: relative;
+    }
+
+    .explanation-content::before {
+        content: '💡';
+        margin-right: 8px;
+    }
+
+    .btn-show-correct {
+        background: transparent;
+        border: 1px solid var(--incorrect-border);
+        color: var(--incorrect-border);
+        padding: 6px 14px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-left: 10px;
+        transition: all 0.2s ease;
+        display: inline-block;
+    }
+
+    .btn-show-correct:hover {
+        background: var(--incorrect-bg);
+        transform: translateY(-1px);
+    }
+
+    .slides-section {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 3px dashed var(--primary-color);
+    }
+
+    .slides-header {
+        background: var(--quiz-header-bg);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 15px;
+        margin: 2.5rem 0;
+        font-size: 1.8rem;
+        font-weight: 700;
+        text-align: center;
+        box-shadow: 0 6px 20px rgba(42, 103, 111, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .slides-header::after {
+        content: '📚';
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0.15;
+        font-size: 2.5rem;
+    }
+
+    .pdf-controls {
+        display: flex;
+        justify-content: center;
+        gap: 1.2rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .pdf-btn {
+        padding: 0.9rem 1.8rem;
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        border-radius: 10px;
+        color: var(--text-color);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        backdrop-filter: blur(5px);
+    }
+
+    .pdf-btn:hover {
+        background: var(--button-primary-bg);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .pdf-btn.active {
+        background: var(--button-primary-bg);
+        color: white;
+        border-color: transparent;
+        box-shadow: 0 4px 12px rgba(42, 103, 111, 0.3);
+    }
+
+    .pdf-viewer-container {
+        background: var(--slide-bg);
+        border-radius: 15px;
+        overflow: hidden;
+        margin-bottom: 2rem;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        min-height: 800px;
+        height: 70vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .pdf-viewer-header {
+        background: var(--quiz-header-bg);
+        color: white;
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        flex-shrink: 0;
+    }
+
+    .pdf-viewer-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .pdf-controls-small {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .pdf-nav-btn {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        min-width: 50px;
+    }
+
+    .pdf-nav-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(1.05);
+    }
+
+    .pdf-frame-container {
+        flex-grow: 1;
+        position: relative;
+        overflow: hidden;
+        min-height: 600px;
+    }
+
+    .pdf-frame {
+        width: 100%;
+        height: 100%;
+        border: none;
+        min-height: 600px;
+    }
+
+    .pdf-loading {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: var(--slide-bg);
+        z-index: 10;
+    }
+
+    .pdf-loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid var(--border-color);
+        border-top: 5px solid var(--primary-color);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 1rem;
+    }
+
+    .pdf-loading-text {
+        color: var(--text-color);
+        font-weight: 500;
+    }
+
+    .mobile-pdf-list {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .mobile-pdf-item {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1.2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+
+    .mobile-pdf-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    .mobile-pdf-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .mobile-pdf-icon {
+        font-size: 2rem;
+    }
+
+    .mobile-pdf-details {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mobile-pdf-name {
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: var(--text-color);
+    }
+
+    .mobile-pdf-size {
+        font-size: 0.9rem;
+        color: var(--text-color);
+        opacity: 0.7;
+    }
+
+    .mobile-pdf-actions {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .mobile-pdf-btn {
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+    }
+
+    .mobile-pdf-btn.open-btn {
+        background: var(--button-primary-bg);
+        color: white;
+    }
+
+    .mobile-pdf-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .quiz-progress {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: var(--glass-bg);
+        border-radius: 10px;
+        border: 1px solid var(--glass-border);
+    }
+
+    .progress-bar {
+        flex-grow: 1;
+        height: 10px;
+        background: var(--border-color);
+        border-radius: 5px;
+        margin: 0 1rem;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: var(--primary-color);
+        border-radius: 5px;
+        transition: width 0.3s ease;
+    }
+
+    .progress-text {
+        font-weight: 600;
+        color: var(--primary-color);
+        white-space: nowrap;
+    }
+
+    .footer-note {
+        text-align: center;
+        margin: 3rem 0 1rem;
+        padding: 1.5rem;
+        color: var(--primary-color);
+        font-size: 1.1rem;
+        border-top: 2px solid rgba(42, 103, 111, 0.2);
+        opacity: 0.9;
+        font-weight: 600;
+        background: var(--glass-bg);
+        border-radius: 15px;
+        backdrop-filter: blur(5px);
+    }
+
+    [data-theme="dark"] .footer-note {
+        color: var(--secondary-color);
+        border-color: rgba(169, 138, 80, 0.3);
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 1024px) {
+        .quiz-container {
+            margin: 1rem;
+            padding: 1.5rem;
+        }
+        
+        .quiz-header, .slides-header {
+            font-size: 1.7rem;
+            padding: 1.2rem;
+        }
+        
+        .pdf-viewer-container {
+            min-height: 600px;
+            height: 65vh;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .controls {
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 1rem;
+        }
+        
+        .btn {
+            width: auto;
+            flex: 1 1 calc(50% - 10px);
+            margin: 0;
+            min-width: 120px;
+            padding: 0.8rem;
+            font-size: 0.9rem;
+        }
+        
+        .pdf-controls {
+            display: none !important;
+        }
+        
+        .desktop-viewer {
+            display: none !important;
+        }
+        
+        .mobile-pdf-list {
+            display: flex;
+        }
+        
+        .pdf-viewer-container {
+            min-height: 500px;
+            height: 60vh;
+        }
+        
+        .mobile-pdf-item {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem;
+        }
+        
+        .mobile-pdf-info {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .mobile-pdf-actions {
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .mobile-pdf-btn {
+            flex: 1;
+            max-width: 120px;
+        }
+    }
+
+    @media (min-width: 769px) {
+        .mobile-pdf-list {
+            display: none !important;
+        }
+        
+        .desktop-viewer {
+            display: flex !important;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .quiz-header, .slides-header {
+            font-size: 1.4rem;
+            padding: 1rem;
+        }
+        
+        .pdf-viewer-container {
+            min-height: 400px;
+            height: 55vh;
+        }
+        
+        .pdf-nav-btn {
+            padding: 0.4rem 0.8rem;
+            min-width: 45px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            Machine Learning Final Exam
+        </div>
+
+        <div class="quiz-progress">
+            <div class="progress-text">Quiz Progress:</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="quiz-progress" style="width: 0%"></div>
+            </div>
+            <div class="progress-text"><span id="answered-count">0</span>/90 Answered</div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" onclick="resetQuiz()">
+                <span class="btn-icon">🔄</span> Reset Quiz
+            </button>
+            <button class="btn" onclick="showAllAnswers()">
+                <span class="btn-icon">👁️</span> Show All Answers
+            </button>
+            <button class="btn" onclick="hideAllAnswers()">
+                <span class="btn-icon">🙈</span> Hide All Answers
+            </button>
+            <button class="btn btn-secondary" id="themeToggle" onclick="toggleTheme()">
+                <span class="btn-icon">🌙</span> Dark Mode
+            </button>
+            <button class="btn btn-secondary" id="slidesToggle" onclick="toggleSlides()">
+                <span class="btn-icon">📚</span> سلايدات المادة
+            </button>
+        </div>
+
+        <!-- Questions Section -->
+        <div id="questions-section">
+            <!-- Question 1 -->
+            <div class="question">
+                <h3>1. In supervised learning the input contains?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="a"> a) Input only</label>
+                    <label><input type="radio" name="q1" value="b"> b) Input and output</label>
+                    <label><input type="radio" name="q1" value="c"> c) Output only</label>
+                    <label><input type="radio" name="q1" value="d"> d) Nothing</label>
+                </div>
+                <div class="answer-box" id="answer1" data-correct-answer="b" data-explanation="Supervised learning requires both input features and corresponding output labels to train a model that can predict outputs for new inputs. The algorithm learns the mapping from inputs to outputs.">
+                    Correct Answer: b<br><br><em>Explanation: Supervised learning requires both input features and corresponding output labels to train a model that can predict outputs for new inputs. The algorithm learns the mapping from inputs to outputs.</em>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question">
+                <h3>2. Examples of some data without outputs is the input of …</h3>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="a"> a) Supervised Learning</label>
+                    <label><input type="radio" name="q2" value="b"> b) Semi-supervised Learning</label>
+                    <label><input type="radio" name="q2" value="c"> c) Machine Learning</label>
+                    <label><input type="radio" name="q2" value="d"> d) Unsupervised Learning</label>
+                </div>
+                <div class="answer-box" id="answer2" data-correct-answer="d" data-explanation="Unsupervised learning works with unlabeled data (data without outputs). It discovers patterns, structures, or relationships in the data without predefined categories.">
+                    Correct Answer: d<br><br><em>Explanation: Unsupervised learning works with unlabeled data (data without outputs). It discovers patterns, structures, or relationships in the data without predefined categories.</em>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question">
+                <h3>3. Classification and Regression are types of … Learning</h3>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="a"> a) Supervised</label>
+                    <label><input type="radio" name="q3" value="b"> b) Clustering</label>
+                    <label><input type="radio" name="q3" value="c"> c) Machine</label>
+                    <label><input type="radio" name="q3" value="d"> d) Unsupervised</label>
+                </div>
+                <div class="answer-box" id="answer3" data-correct-answer="a" data-explanation="Both classification (predicting discrete labels) and regression (predicting continuous values) are supervised learning tasks because they require labeled training data.">
+                    Correct Answer: a<br><br><em>Explanation: Both classification (predicting discrete labels) and regression (predicting continuous values) are supervised learning tasks because they require labeled training data.</em>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question">
+                <h3>4. The output in supervised learning is a model that predicts unknown … given a new input.</h3>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="a"> a) Output</label>
+                    <label><input type="radio" name="q4" value="b"> b) Data</label>
+                    <label><input type="radio" name="q4" value="c"> c) Input</label>
+                    <label><input type="radio" name="q4" value="d"> d) Result</label>
+                </div>
+                <div class="answer-box" id="answer4" data-correct-answer="a" data-explanation="The trained supervised learning model takes new inputs and predicts the corresponding outputs based on patterns learned from the training data.">
+                    Correct Answer: a<br><br><em>Explanation: The trained supervised learning model takes new inputs and predicts the corresponding outputs based on patterns learned from the training data.</em>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question">
+                <h3>5. Reinforcement Learning is to learn how to perform a task from interactions with the environment.</h3>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="a"> a) True</label>
+                    <label><input type="radio" name="q5" value="b"> b) False</label>
+                </div>
+                <div class="answer-box" id="answer5" data-correct-answer="a" data-explanation="Reinforcement learning involves an agent learning to make decisions by interacting with an environment to maximize cumulative reward through trial and error.">
+                    Correct Answer: a<br><br><em>Explanation: Reinforcement learning involves an agent learning to make decisions by interacting with an environment to maximize cumulative reward through trial and error.</em>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question">
+                <h3>6. An example of applications of ML includes …</h3>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="a"> a) Radiology and Medicine</label>
+                    <label><input type="radio" name="q6" value="b"> b) Scientific Discovery</label>
+                    <label><input type="radio" name="q6" value="c"> c) Creating Images & Text</label>
+                    <label><input type="radio" name="q6" value="d"> d) All of above</label>
+                </div>
+                <div class="answer-box" id="answer6" data-correct-answer="d" data-explanation="Machine learning has diverse applications across medicine (diagnosis), scientific research (discovering patterns), and generative AI (creating content like images and text).">
+                    Correct Answer: d<br><br><em>Explanation: Machine learning has diverse applications across medicine (diagnosis), scientific research (discovering patterns), and generative AI (creating content like images and text).</em>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question">
+                <h3>7. In linear regression we find the …</h3>
+                <div class="options">
+                    <label><input type="radio" name="q7" value="a"> a) Linear values</label>
+                    <label><input type="radio" name="q7" value="b"> b) Best Fit Line</label>
+                    <label><input type="radio" name="q7" value="c"> c) Best Fit Values</label>
+                    <label><input type="radio" name="q7" value="d"> d) Optimal Line</label>
+                </div>
+                <div class="answer-box" id="answer7" data-correct-answer="b" data-explanation="Linear regression finds the line that best fits the data points by minimizing the sum of squared errors between observed and predicted values.">
+                    Correct Answer: b<br><br><em>Explanation: Linear regression finds the line that best fits the data points by minimizing the sum of squared errors between observed and predicted values.</em>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question">
+                <h3>8. In linear regression the aim is to reduce the cost value as much as we can.</h3>
+                <div class="options">
+                    <label><input type="radio" name="q8" value="a"> a) True</label>
+                    <label><input type="radio" name="q8" value="b"> b) False</label>
+                </div>
+                <div class="answer-box" id="answer8" data-correct-answer="a" data-explanation="The cost function (like Mean Squared Error) measures prediction error. Minimizing it through optimization algorithms like gradient descent improves model accuracy.">
+                    Correct Answer: a<br><br><em>Explanation: The cost function (like Mean Squared Error) measures prediction error. Minimizing it through optimization algorithms like gradient descent improves model accuracy.</em>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question">
+                <h3>9. … is an example of regression evaluation metrics.</h3>
+                <div class="options">
+                    <label><input type="radio" name="q9" value="a"> a) Mean Squared Error (MSE)</label>
+                    <label><input type="radio" name="q9" value="b"> b) Root Mean Squared Error (RMSE)</label>
+                    <label><input type="radio" name="q9" value="c"> c) R2-Score</label>
+                    <label><input type="radio" name="q9" value="d"> d) All</label>
+                </div>
+                <div class="answer-box" id="answer9" data-correct-answer="d" data-explanation="All listed metrics (MSE, RMSE, R²) are used to evaluate regression models by measuring prediction accuracy and goodness of fit.">
+                    Correct Answer: d<br><br><em>Explanation: All listed metrics (MSE, RMSE, R²) are used to evaluate regression models by measuring prediction accuracy and goodness of fit.</em>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question">
+                <h3>10. MAE calculates the absolute difference between actual and predicted values using …</h3>
+                <div class="options">
+                    <label><input type="radio" name="q10" value="a"> a) \(\frac{1}{n} \sum | x_i - y_i |\)</label>
+                    <label><input type="radio" name="q10" value="b"> b) \(\frac{1}{n} \sum (x_i - y_i)^2\)</label>
+                    <label><input type="radio" name="q10" value="c"> c) \(\frac{1}{n} \sum (x_i - y_i)^2\)</label>
+                    <label><input type="radio" name="q10" value="d"> d) None</label>
+                </div>
+                <div class="answer-box" id="answer10" data-correct-answer="a" data-explanation="MAE (Mean Absolute Error) calculates the average absolute difference between predicted and actual values, making it less sensitive to outliers than MSE.">
+                    Correct Answer: a<br><br><em>Explanation: MAE (Mean Absolute Error) calculates the average absolute difference between predicted and actual values, making it less sensitive to outliers than MSE.</em>
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="question">
+                <h3>11. The equation \(\frac{1}{n} \sum (x - y)\) is applied to calculate the MSE.</h3>
+                <div class="options">
+                    <label><input type="radio" name="q11" value="a"> a) True</label>
+                    <label><input type="radio" name="q11" value="b"> b) False</label>
+                </div>
+                <div class="answer-box" id="answer11" data-correct-answer="b" data-explanation="The given equation lacks squaring (التربيع), so it's incorrect for MSE.">
+                    Correct Answer: b<br><br><em>Explanation:  The given equation lacks squaring (التربيع), so it's incorrect for MSE.
+</em>
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question">
+                <h3>12. The Root Mean Squared Error is calculated as follows:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q12" value="a"> a) \(\sqrt{MSE}\)</label>
+                    <label><input type="radio" name="q12" value="b"> b) \(\sqrt{MSE}/2\)</label>
+                    <label><input type="radio" name="q12" value="c"> c) \(\sqrt{MSE/MSE}\)</label>
+                    <label><input type="radio" name="q12" value="d"> d) None</label>
+                </div>
+                <div class="answer-box" id="answer12" data-correct-answer="a" data-explanation="RMSE is the square root of MSE, putting error back in the original units of the target variable for easier interpretation.">
+                    Correct Answer: a<br><br><em>Explanation: RMSE is the square root of MSE, putting error back in the original units of the target variable for easier interpretation.</em>
+                </div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="question">
+                <h3>13. … shows how well the data fit the regression model (goodness of fit).</h3>
+                <div class="options">
+                    <label><input type="radio" name="q13" value="a"> a) Mean Squared Error (MSE)</label>
+                    <label><input type="radio" name="q13" value="b"> b) Root Mean Squared Error (RMSE)</label>
+                    <label><input type="radio" name="q13" value="c"> c) R2-Score</label>
+                    <label><input type="radio" name="q13" value="d"> d) All</label>
+                </div>
+                <div class="answer-box" id="answer13" data-correct-answer="c" data-explanation="R² (coefficient of determination) measures how well the model explains variance in the dependent variable, ranging from 0 (poor fit) to 1 (perfect fit).">
+                    Correct Answer: c<br><br><em>Explanation: R² (coefficient of determination) measures how well the model explains variance in the dependent variable, ranging from 0 (poor fit) to 1 (perfect fit).</em>
+                </div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="question">
+                <h3>14. R²-Score is calculated using the equation:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q14" value="a"> a) \(\sqrt{MSE}\)</label>
+                    <label><input type="radio" name="q14" value="b"> b) \(\frac{1}{n} \sum (x_i - y_i)^2\)</label>
+                    <label><input type="radio" name="q14" value="c"> c) \(R^2 = 1 - \frac{\text{sum squared regression (SSR)}}{\text{Total sum of squares (SST)}}\)
+</label>
+                    <label><input type="radio" name="q14" value="d"> d) None</label>
+                </div>
+                <div class="answer-box" id="answer14" data-correct-answer="c" data-explanation="R² = 1 - (SSR/SST), where SSR is sum of squared residuals and SST is total sum of squares. It represents proportion of variance explained.">
+                    Correct Answer: c<br><br><em>Explanation: R² = 1 - (SSR/SST), where SSR is sum of squared residuals and SST is total sum of squares. It represents proportion of variance explained.</em>
+                </div>
+            </div>
+
+            <!-- Question 15 -->
+            <div class="question">
+                <h3>15. Logistic Regression (LR) is a type of …</h3>
+                <div class="options">
+                    <label><input type="radio" name="q15" value="a"> a) Regression</label>
+                    <label><input type="radio" name="q15" value="b"> b) Clustering</label>
+                    <label><input type="radio" name="q15" value="c"> c) Classification</label>
+                    <label><input type="radio" name="q15" value="d"> d) Grouping</label>
+                </div>
+                <div class="answer-box" id="answer15" data-correct-answer="c" data-explanation="Despite its name, logistic regression is used for binary classification (e.g., spam detection; Predict if email is spam (1) or not spam (0)) by estimating probabilities using the sigmoid function.">
+                    Correct Answer: c<br><br><em>Explanation: Despite its name, logistic regression is used for binary classification (e.g., spam detection; Predict if email is spam (1) or not spam (0)) by estimating probabilities using the sigmoid function.</em>
+                </div>
+            </div>
+
+            <!-- Question 16 -->
+            <div class="question">
+                <h3>16. The function used to calculate the prediction model in Logistic Regression is …</h3>
+                <div class="options">
+                    <label><input type="radio" name="q16" value="a"> a) Sigmoid function</label>
+                    <label><input type="radio" name="q16" value="b"> b) Prediction function</label>
+                    <label><input type="radio" name="q16" value="c"> c) Model function</label>
+                    <label><input type="radio" name="q16" value="d"> d) Output function</label>
+                </div>
+                <div class="answer-box" id="answer16" data-correct-answer="a" data-explanation="The sigmoid function (logistic function) maps any real-valued number to a probability between 0 and 1, making it suitable for binary classification.">
+                    Correct Answer: a<br><br><em>Explanation: The sigmoid function (logistic function) maps any real-valued number to a probability between 0 and 1, making it suitable for binary classification.</em>
+                </div>
+            </div>
+
+            <!-- Question 17 -->
+            <div class="question">
+                <h3>17. In Logistic Regression, the line that makes perfect separation between data is called …</h3>
+                <div class="options">
+                    <label><input type="radio" name="q17" value="a"> a) Line Boundary</label>
+                    <label><input type="radio" name="q17" value="b"> b) Decision Boundary</label>
+                    <label><input type="radio" name="q17" value="c"> c) Sigmoid Boundary</label>
+                    <label><input type="radio" name="q17" value="d"> d) None</label>
+                </div>
+                <div class="answer-box" id="answer17" data-correct-answer="b" data-explanation="The decision boundary is the threshold (typically 0.5 probability) where the model separates predicted classes, derived from the logistic function.">
+                    Correct Answer: b<br><br><em>Explanation: The decision boundary is the threshold (typically 0.5 probability) where the model separates predicted classes, derived from the logistic function.</em>
+                </div>
+            </div>
+
+            <!-- Question 18 -->
+            <div class="question">
+                <h3>18. We use … to minimize the cost function in Logistic Regression.</h3>
+                <div class="options">
+                    <label><input type="radio" name="q18" value="a"> a) Sigmoid function</label>
+                    <label><input type="radio" name="q18" value="b"> b) Cost Function</label>
+                    <label><input type="radio" name="q18" value="c"> c) Gradient Descent</label>
+                    <label><input type="radio" name="q18" value="d"> d) Decision function</label>
+                </div>
+                <div class="answer-box" id="answer18" data-correct-answer="c" data-explanation="Gradient descent iteratively adjusts model parameters to minimize the logistic loss (cross-entropy) function by moving in the direction of steepest descent.">
+                    Correct Answer: c<br><br><em>Explanation: Gradient descent iteratively adjusts model parameters to minimize the logistic loss (cross-entropy) function by moving in the direction of steepest descent.</em>
+                </div>
+            </div>
+
+            <!-- Question 19 -->
+            <div class="question">
+                <h3>19. A … is a matrix that summarizes the performance of a machine-learning model.</h3>
+                <div class="options">
+                    <label><input type="radio" name="q19" value="a"> a) Performance Matrix</label>
+                    <label><input type="radio" name="q19" value="b"> b) Output Matrix</label>
+                    <label><input type="radio" name="q19" value="c"> c) Model Matrix</label>
+                    <label><input type="radio" name="q19" value="d"> d) Confusion Matrix</label>
+                </div>
+                <div class="answer-box" id="answer19" data-correct-answer="d" data-explanation="A confusion matrix displays true positives, false positives, true negatives, and false negatives, providing a detailed view of classification performance.">
+                    Correct Answer: d<br><br><em>Explanation: A confusion matrix displays true positives, false positives, true negatives, and false negatives, providing a detailed view of classification performance.</em>
+                </div>
+            </div>
+
+            <!-- Question 20 -->
+            <div class="question">
+                <h3>20. The most commonly used metric to judge a model is …</h3>
+                <div class="options">
+                    <label><input type="radio" name="q20" value="a"> a) Accuracy</label>
+                    <label><input type="radio" name="q20" value="b"> b) Prediction</label>
+                    <label><input type="radio" name="q20" value="c"> c) Modelling</label>
+                    <label><input type="radio" name="q20" value="d"> d) None</label>
+                </div>
+                <div class="answer-box" id="answer20" data-correct-answer="a" data-explanation="Accuracy = (TP+TN)/Total is intuitive but can be misleading with imbalanced classes. It's often supplemented with precision, recall, and F1-score.">
+                    Correct Answer: a<br><br><em>Explanation: Accuracy = (TP+TN)/Total is intuitive but can be misleading with imbalanced classes. It's often supplemented with precision, recall, and F1-score.</em>
+                </div>
+            </div>
+
+            <!-- Question 21 -->
+            <div class="question">
+                <h3>21. Clustering is a type of … Learning</h3>
+                <div class="options">
+                    <label><input type="radio" name="q21" value="a"> a) Supervised</label>
+                    <label><input type="radio" name="q21" value="b"> b) Semi-supervised</label>
+                    <label><input type="radio" name="q21" value="c"> c) Unsupervised</label>
+                    <label><input type="radio" name="q21" value="d"> d) Reinforcement</label>
+                </div>
+                <div class="answer-box" id="answer21" data-correct-answer="c" data-explanation="Clustering groups similar data points without predefined labels, making it unsupervised learning. Common algorithms include K-means and hierarchical clustering.">
+                    Correct Answer: c<br><br><em>Explanation: Clustering groups similar data points without predefined labels, making it unsupervised learning. Common algorithms include K-means and hierarchical clustering.</em>
+                </div>
+            </div>
+
+            <!-- Question 22 -->
+            <div class="question">
+                <h3>22. Accuracy is calculated as:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q22" value="a"> a) TP / FP</label>
+                    <label><input type="radio" name="q22" value="b"> b) TP ＋ TN / Total</label>
+                    <label><input type="radio" name="q22" value="c"> c) FP ＋ FN / Total</label>
+                    <label><input type="radio" name="q22" value="d"> d) TP / Total</label>
+                </div>
+                <div class="answer-box" id="answer22" data-correct-answer="b" data-explanation="Accuracy = (True Positives + True Negatives) / Total Predictions. It measures overall correctness but can be skewed with class imbalance.">
+                    Correct Answer: b<br><br><em>Explanation: Accuracy = (True Positives + True Negatives) / Total Predictions. It measures overall correctness but can be skewed with class imbalance.</em>
+                </div>
+            </div>
+
+            <!-- Question 23 -->
+            <div class="question">
+                <h3>23. Precision is calculated as:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q23" value="a"> a) TP / (TP ＋ FP)</label>
+                    <label><input type="radio" name="q23" value="b"> b) TP / (TP ＋ FN)</label>
+                    <label><input type="radio" name="q23" value="c"> c) TN / (TN ＋ FP)</label>
+                    <label><input type="radio" name="q23" value="d"> d) TP / Total</label>
+                </div>
+                <div class="answer-box" id="answer23" data-correct-answer="a" data-explanation="Precision = TP/(TP+FP). Also called positive predictive value, it measures how many predicted positives are actually positive (important when FP cost is high).">
+                    Correct Answer: a<br><br><em>Explanation: Precision = TP/(TP+FP). Also called positive predictive value, it measures how many predicted positives are actually positive (important when FP cost is high).</em>
+                </div>
+            </div>
+
+            <!-- Question 24 -->
+            <div class="question">
+                <h3>24. Recall is calculated as:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q24" value="a"> a) TP / (TP ＋ FP)</label>
+                    <label><input type="radio" name="q24" value="b"> b) TP / (TP ＋ FN)</label>
+                    <label><input type="radio" name="q24" value="c"> c) TN / (TN ＋ FN)</label>
+                    <label><input type="radio" name="q24" value="d"> d) TP / Total</label>
+                </div>
+                <div class="answer-box" id="answer24" data-correct-answer="b" data-explanation="Recall = TP/(TP+FN). Also called sensitivity or true positive rate, it measures how many actual positives are correctly identified (important when FN cost is high).">
+                    Correct Answer: b<br><br><em>Explanation: Recall = TP/(TP+FN). Also called sensitivity or true positive rate, it measures how many actual positives are correctly identified (important when FN cost is high).</em>
+                </div>
+            </div>
+
+            <!-- Question 25 -->
+            <div class="question">
+                <h3>25. F1 Score is calculated as:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q25" value="a"> a) (Precision ＋ Recall) / 2</label>
+                    <label><input type="radio" name="q25" value="b"> b) Precision × Recall</label>
+                    <label><input type="radio" name="q25" value="c"> c) 2 × (Precision × Recall) / (Precision ＋ Recall)</label>
+                    <label><input type="radio" name="q25" value="d"> d) (TP ＋ TN) / Total</label>
+                </div>
+                <div class="answer-box" id="answer25" data-correct-answer="c" data-explanation="F1 Score = 2 × (Precision × Recall) / (Precision + Recall). It's the harmonic mean of precision and recall, balancing both metrics.">
+                    Correct Answer: c<br><br><em>Explanation: F1 Score = 2 × (Precision × Recall) / (Precision + Recall). It's the harmonic mean of precision and recall, balancing both metrics.</em>
+                </div>
+            </div>
+
+            <!-- Question 26 -->
+            <div class="question">
+                <h3>26. Macro Average is calculated as:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q26" value="a"> a) Average of F1 scores for all classes</label>
+                    <label><input type="radio" name="q26" value="b"> b) Weighted average of F1 scores</label>
+                    <label><input type="radio" name="q26" value="c"> c) Highest F1 among classes</label>
+                    <label><input type="radio" name="q26" value="d"> d) TP / (TP ＋ FP)</label>
+                </div>
+                <div class="answer-box" id="answer26" data-correct-answer="a" data-explanation="Macro-average computes the metric independently for each class and then takes the unweighted mean, treating all classes equally regardless of size.">
+                    Correct Answer: a<br><br><em>Explanation: Macro-average computes the metric independently for each class and then takes the unweighted mean, treating all classes equally regardless of size.</em>
+                </div>
+            </div>
+
+            <!-- Question 27 -->
+            <div class="question">
+                <h3>27. Weighted Average is calculated as:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q27" value="a"> a) Average of metrics for all classes, treating each class equally</label>
+                    <label><input type="radio" name="q27" value="b"> b) Metric of the majority class only</label>
+                    <label><input type="radio" name="q27" value="c"> c) Average of metrics weighted by class support</label>
+                    <label><input type="radio" name="q27" value="d"> d) Minimum of all class metrics</label>
+                </div>
+                <div class="answer-box" id="answer27" data-correct-answer="c" data-explanation="Weighted average calculates metrics for each class and averages them weighted by the number of true instances for each class (class support).">
+                    Correct Answer: c<br><br><em>Explanation: Weighted average calculates metrics for each class and averages them weighted by the number of true instances for each class (class support).</em>
+                </div>
+            </div>
+
+            <!-- Question 28 -->
+            <div class="question">
+                <h3>28. A well-defined ML task is described by:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q28" value="a"> a) Input, output</label>
+                    <label><input type="radio" name="q28" value="b"> b) Performance, Experience, and Task</label>
+                    <label><input type="radio" name="q28" value="c"> c) Speed, accuracy, time</label>
+                    <label><input type="radio" name="q28" value="d"> d) Loss, metrics, epochs</label>
+                </div>
+                <div class="answer-box" id="answer28" data-correct-answer="b" data-explanation="Tom Mitchell's definition: A computer program learns from experience E with respect to task T and performance measure P if its performance on T improves with E.">
+                    Correct Answer: b<br><br><em>Explanation: Tom Mitchell's definition: A computer program learns from experience E with respect to task T and performance measure P if its performance on T improves with E.</em>
+                </div>
+            </div>
+
+            <!-- Question 29 -->
+            <div class="question">
+                <h3>29. The goal of clustering is to …</h3>
+                <div class="options">
+                    <label><input type="radio" name="q29" value="a"> a) Predict labels</label>
+                    <label><input type="radio" name="q29" value="b"> b) Find hidden structure in data</label>
+                    <label><input type="radio" name="q29" value="c"> c) Optimize a loss function</label>
+                    <label><input type="radio" name="q29" value="d"> d) Collect more samples</label>
+                </div>
+                <div class="answer-box" id="answer29" data-correct-answer="b" data-explanation="Clustering discovers natural groupings or patterns in unlabeled data, revealing structure like customer segments, document topics, or image features.">
+                    Correct Answer: b<br><br><em>Explanation: Clustering discovers natural groupings or patterns in unlabeled data, revealing structure like customer segments, document topics, or image features.</em>
+                </div>
+            </div>
+
+            <!-- Question 30 -->
+            <div class="question">
+                <h3>30. Reinforcement learning learns from…</h3>
+                <div class="options">
+                    <label><input type="radio" name="q30" value="a"> a) Static datasets</label>
+                    <label><input type="radio" name="q30" value="b"> b) Interaction with environment</label>
+                    <label><input type="radio" name="q30" value="c"> c) Manual labels</label>
+                    <label><input type="radio" name="q30" value="d"> d) Mathematical models</label>
+                </div>
+                <div class="answer-box" id="answer30" data-correct-answer="b" data-explanation="RL agents learn through trial and error by taking actions, receiving rewards/penalties, and updating policies to maximize cumulative reward over time.">
+                    Correct Answer: b<br><br><em>Explanation: RL agents learn through trial and error by taking actions, receiving rewards/penalties, and updating policies to maximize cumulative reward over time.</em>
+                </div>
+            </div>
+
+            <!-- Question 31 -->
+            <div class="question">
+                <h3>31. The cost function in linear regression is also known as:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q31" value="a"> a) Reward function</label>
+                    <label><input type="radio" name="q31" value="b"> b) Error function</label>
+                    <label><input type="radio" name="q31" value="c"> c) Threshold function</label>
+                    <label><input type="radio" name="q31" value="d"> d) Activation function</label>
+                </div>
+                <div class="answer-box" id="answer31" data-correct-answer="b" data-explanation="Cost function (or loss/error function) quantifies prediction error. Mean Squared Error is commonly used for linear regression.">
+                    Correct Answer: b<br><br><em>Explanation: Cost function (or loss/error function) quantifies prediction error. Mean Squared Error is commonly used for linear regression.</em>
+                </div>
+            </div>
+
+            <!-- Question 32 -->
+            <div class="question">
+                <h3>32. One-vs-All classification converts multi-class into …</h3>
+                <div class="options">
+                    <label><input type="radio" name="q32" value="a"> a) Regression problems</label>
+                    <label><input type="radio" name="q32" value="b"> b) Multiple binary problems</label>
+                    <label><input type="radio" name="q32" value="c"> c) K-means problems</label>
+                    <label><input type="radio" name="q32" value="d"> d) Probabilistic models</label>
+                </div>
+                <div class="answer-box" id="answer32" data-correct-answer="b" data-explanation="One-vs-All trains one binary classifier per class (class vs all others). For prediction, the classifier with highest confidence wins.">
+                    Correct Answer: b<br><br><em>Explanation: One-vs-All trains one binary classifier per class (class vs all others). For prediction, the classifier with highest confidence wins.</em>
+                </div>
+            </div>
+
+            <!-- Question 33 -->
+            <div class="question">
+                <h3>33. In One-vs-One classification, number of classifiers needed is …</h3>
+                <div class="options">
+                    <label><input type="radio" name="q33" value="a"> a) \( N \)</label>
+                    <label><input type="radio" name="q33" value="b"> b) \( N - 1 \)</label>
+                    <label><input type="radio" name="q33" value="c"> c) \( N \times 2 \)</label>
+                    <label><input type="radio" name="q33" value="d"> d) \( N(N - 1) / 2 \)</label>
+                </div>
+                <div class="answer-box" id="answer33" data-correct-answer="d" data-explanation="One-vs-One creates a classifier for each pair of classes. For N classes, you need N(N-1)/2 classifiers (combinations of N taken 2 at a time).">
+                    Correct Answer: d<br><br><em>Explanation: One-vs-One creates a classifier for each pair of classes. For N classes, you need N(N-1)/2 classifiers (combinations of N taken 2 at a time).</em>
+                </div>
+            </div>
+
+            <!-- Question 34 -->
+            <div class="question">
+                <h3>34. MLE refers to a method that:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q34" value="a"> a) Minimizes the probability of the observed data</label>
+                    <label><input type="radio" name="q34" value="b"> b) Maximizes the probability of the observed data</label>
+                    <label><input type="radio" name="q34" value="c"> c) Forces all parameters to be equal</label>
+                    <label><input type="radio" name="q34" value="d"> d) Ignores the observed data</label>
+                </div>
+                <div class="answer-box" id="answer34" data-correct-answer="b" data-explanation="Maximum Likelihood Estimation finds parameter values that maximize the likelihood function, making the observed data most probable under the model.">
+                    Correct Answer: b<br><br><em>Explanation: Maximum Likelihood Estimation finds parameter values that maximize the likelihood function, making the observed data most probable under the model.</em>
+                </div>
+            </div>
+
+            <!-- Question 35 -->
+            <div class="question">
+                <h3>35. Naive Bayes assumes features are …</h3>
+                <div class="options">
+                    <label><input type="radio" name="q35" value="a"> a) Dependent</label>
+                    <label><input type="radio" name="q35" value="b"> b) Independent given the label</label>
+                    <label><input type="radio" name="q35" value="c"> c) Always numeric</label>
+                    <label><input type="radio" name="q35" value="d"> d) Always binary</label>
+                </div>
+                <div class="answer-box" id="answer35" data-correct-answer="b" data-explanation="The &quot;naive&quot; assumption is that features are conditionally independent given the class label, simplifying probability calculations dramatically.">
+                    Correct Answer: b<br><br><em>Explanation: The "naive" assumption is that features are conditionally independent given the class label, simplifying probability calculations dramatically.</em>
+                </div>
+            </div>
+
+            <!-- Question 36 -->
+            <div class="question">
+                <h3>36. Bayes' theorem computes:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q36" value="a"> a) Unconditional probability</label>
+                    <label><input type="radio" name="q36" value="b"> b) Posterior probability</label>
+                    <label><input type="radio" name="q36" value="c"> c) Distance between points</label>
+                    <label><input type="radio" name="q36" value="d"> d) Mean of labels</label>
+                </div>
+                <div class="answer-box" id="answer36" data-correct-answer="b" data-explanation="Bayes' theorem: P(A|B) = P(B|A)P(A)/P(B). In ML, it computes posterior probability of a class given the features.">
+                    Correct Answer: b<br><br><em>Explanation: Bayes' theorem: P(A|B) = P(B|A)P(A)/P(B). In ML, it computes posterior probability of a class given the features.</em>
+                </div>
+            </div>
+
+            <!-- Question 37 -->
+            <div class="question">
+                <h3>37. Naive Bayes chooses the class with:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q37" value="a"> a) Highest entropy</label>
+                    <label><input type="radio" name="q37" value="b"> b) Smallest variance</label>
+                    <label><input type="radio" name="q37" value="c"> c) Highest posterior probability</label>
+                    <label><input type="radio" name="q37" value="d"> d) Lowest probability</label>
+                </div>
+                <div class="answer-box" id="answer37" data-correct-answer="c" data-explanation="Naive Bayes predicts the class with maximum posterior probability P(class|features), calculated using Bayes' theorem with the independence assumption.">
+                    Correct Answer: c<br><br><em>Explanation: Naive Bayes predicts the class with maximum posterior probability P(class|features), calculated using Bayes' theorem with the independence assumption.</em>
+                </div>
+            </div>
+
+            <!-- Question 38 -->
+            <div class="question">
+                <h3>38. A single coin flip follows a … distribution</h3>
+                <div class="options">
+                    <label><input type="radio" name="q38" value="a"> a) Gaussian</label>
+                    <label><input type="radio" name="q38" value="b"> b) Poisson</label>
+                    <label><input type="radio" name="q38" value="c"> c) Bernoulli</label>
+                    <label><input type="radio" name="q38" value="d"> d) Uniform</label>
+                </div>
+                <div class="answer-box" id="answer38" data-correct-answer="c" data-explanation="Bernoulli distribution models a single binary trial (success/failure) with probability p. Coin flip is the classic example.">
+                    Correct Answer: c<br><br><em>Explanation: Bernoulli distribution models a single binary trial (success/failure) with probability p. Coin flip is the classic example.</em>
+                </div>
+            </div>
+
+            <!-- Question 39 -->
+            <div class="question">
+                <h3>39. What is a neural network in machine learning?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q39" value="a"> a) A model that uses random guesswork to predict outcomes.</label>
+                    <label><input type="radio" name="q39" value="b"> b) A machine that can only perform basic mathematical calculations.</label>
+                    <label><input type="radio" name="q39" value="c"> c) A model that mimics the human brain to make decisions.</label>
+                    <label><input type="radio" name="q39" value="d"> d) A type of software used only for image processing.</label>
+                </div>
+                <div class="answer-box" id="answer39" data-correct-answer="c" data-explanation="Neural networks are computational models inspired by biological neural networks, consisting of interconnected nodes (neurons) that process information.">
+                    Correct Answer: c<br><br><em>Explanation: Neural networks are computational models inspired by biological neural networks, consisting of interconnected nodes (neurons) that process information.</em>
+                </div>
+            </div>
+
+            <!-- Question 40 -->
+            <div class="question">
+                <h3>40. The process in Neural Networks that mimics biological neurons is used for:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q40" value="a"> a) Identifying phenomena such as patterns in images or data</label>
+                    <label><input type="radio" name="q40" value="b"> b) Weighing different options during decision making</label>
+                    <label><input type="radio" name="q40" value="c"> c) Making final conclusions or predictions</label>
+                    <label><input type="radio" name="q40" value="d"> d) All of the above</label>
+                </div>
+                <div class="answer-box" id="answer40" data-correct-answer="d" data-explanation="Neural networks perform all these functions: pattern recognition (computer vision), weighted decision making (layers with weights), and prediction (output layer).">
+                    Correct Answer: d<br><br><em>Explanation: Neural networks perform all these functions: pattern recognition (computer vision), weighted decision making (layers with weights), and prediction (output layer).</em>
+                </div>
+            </div>
+
+            <!-- Question 41 -->
+            <div class="question">
+                <h3>41. Which of the following is NOT a characteristic of neural networks?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q41" value="a"> a) Generalization</label>
+                    <label><input type="radio" name="q41" value="b"> b) Fault tolerance</label>
+                    <label><input type="radio" name="q41" value="c"> c) Linear computation</label>
+                    <label><input type="radio" name="q41" value="d"> d) Fast</label>
+                </div>
+                <div class="answer-box" id="answer41" data-correct-answer="c" data-explanation="Neural networks use non-linear activation functions to model complex patterns. Pure linear computation would limit their expressive power (perceptron limitation).">
+                    Correct Answer: c<br><br><em>Explanation: Neural networks use non-linear activation functions to model complex patterns. Pure linear computation would limit their expressive power (perceptron limitation).</em>
+                </div>
+            </div>
+
+            <!-- Question 42 -->
+            <div class="question">
+                <h3>42. Which of the following layers is the first in a Neural Network?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q42" value="a"> a) Output Layer</label>
+                    <label><input type="radio" name="q42" value="b"> b) Hidden Layer</label>
+                    <label><input type="radio" name="q42" value="c"> c) Input Layer</label>
+                    <label><input type="radio" name="q42" value="d"> d) None</label>
+                </div>
+                <div class="answer-box" id="answer42" data-correct-answer="c" data-explanation="The input layer receives the raw data/features. Each neuron typically corresponds to one feature in the dataset.">
+                    Correct Answer: c<br><br><em>Explanation: The input layer receives the raw data/features. Each neuron typically corresponds to one feature in the dataset.</em>
+                </div>
+            </div>
+
+            <!-- Question 43 -->
+            <div class="question">
+                <h3>43. What is the primary purpose of the hidden layer in a neural network?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q43" value="a"> a) To output predictions</label>
+                    <label><input type="radio" name="q43" value="b"> b) To decode the relationship between input and output</label>
+                    <label><input type="radio" name="q43" value="c"> c) It represents the final predictions generated by the network</label>
+                    <label><input type="radio" name="q43" value="d"> d) To store weights and biases</label>
+                </div>
+                <div class="answer-box" id="answer43" data-correct-answer="b" data-explanation="Hidden layers transform inputs through weighted connections and non-linear activations to learn hierarchical representations of the data.">
+                    Correct Answer: b<br><br><em>Explanation: Hidden layers transform inputs through weighted connections and non-linear activations to learn hierarchical representations of the data.</em>
+                </div>
+            </div>
+
+            <!-- Question 44 -->
+            <div class="question">
+                <h3>44. What is the primary purpose of the output layer in a neural network?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q44" value="a"> a) To output predictions</label>
+                    <label><input type="radio" name="q44" value="b"> b) To decode the relationship between input and output</label>
+                    <label><input type="radio" name="q44" value="c"> c) It represents the final predictions generated by the network</label>
+                    <label><input type="radio" name="q44" value="d"> d) To store weights and biases</label>
+                </div>
+                <div class="answer-box" id="answer44" data-correct-answer="c" data-explanation="The output layer produces the final predictions. For regression: single neuron with linear activation; for classification: multiple neurons with softmax/sigmoid.">
+                    Correct Answer: c<br><br><em>Explanation: The output layer produces the final predictions. For regression: single neuron with linear activation; for classification: multiple neurons with softmax/sigmoid.</em>
+                </div>
+            </div>
+
+            <!-- Question 45 -->
+            <div class="question">
+                <h3>45. In Neural Networks, the number of neurons in the output layer depends on:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q45" value="a"> a) The number of hidden layers</label>
+                    <label><input type="radio" name="q45" value="b"> b) The size of the training dataset</label>
+                    <label><input type="radio" name="q45" value="c"> c) The type of problem (Regression or Classification)</label>
+                    <label><input type="radio" name="q45" value="d"> d) All of the above</label>
+                </div>
+                <div class="answer-box" id="answer45" data-correct-answer="c" data-explanation="Regression: 1 neuron. Binary classification: 1 neuron with sigmoid. Multi-class: N neurons with softmax (N = number of classes).">
+                    Correct Answer: c<br><br><em>Explanation: Regression: 1 neuron. Binary classification: 1 neuron with sigmoid. Multi-class: N neurons with softmax (N = number of classes).</em>
+                </div>
+            </div>
+
+            <!-- Question 46 -->
+            <div class="question">
+                <h3>46. What is the primary advantage of using multiple hidden layers in a neural network?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q46" value="a"> a) To improve the accuracy of the network</label>
+                    <label><input type="radio" name="q46" value="b"> b) To make the network easier to train</label>
+                    <label><input type="radio" name="q46" value="c"> c) To reduce the computation time</label>
+                    <label><input type="radio" name="q46" value="d"> d) To increase the number of neurons</label>
+                </div>
+                <div class="answer-box" id="answer46" data-correct-answer="a" data-explanation="Deep networks (multiple hidden layers) can learn hierarchical feature representations, capturing complex patterns and improving accuracy for difficult tasks.">
+                    Correct Answer: a<br><br><em>Explanation: Deep networks (multiple hidden layers) can learn hierarchical feature representations, capturing complex patterns and improving accuracy for difficult tasks.</em>
+                </div>
+            </div>
+
+            <!-- Question 47 -->
+            <div class="question">
+                <h3>47. What does a neuron represent in a neural network?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q47" value="a"> a) A layer of computations.</label>
+                    <label><input type="radio" name="q47" value="b"> b) A single feature of the data.</label>
+                    <label><input type="radio" name="q47" value="c"> c) A processing unit that contains weights, bias, and activation function.</label>
+                    <label><input type="radio" name="q47" value="d"> d) A set of rules for the output layer.</label>
+                </div>
+                <div class="answer-box" id="answer47" data-correct-answer="c" data-explanation="A neuron computes: output = activation(Σ(weights × inputs) + bias). It's the fundamental computational unit of neural networks.">
+                    Correct Answer: c<br><br><em>Explanation: A neuron computes: output = activation(Σ(weights × inputs) + bias). It's the fundamental computational unit of neural networks.</em>
+                </div>
+            </div>
+
+            <!-- Question 48 -->
+            <div class="question">
+                <h3>48. What is the main role of bias in a Neural Network?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q48" value="a"> a) To determine the importance of connections between neurons</label>
+                    <label><input type="radio" name="q48" value="b"> b) Fine-tunes the model to minimize differences</label>
+                    <label><input type="radio" name="q48" value="c"> c) Connects the neurons</label>
+                    <label><input type="radio" name="q48" value="d"> d) Activates neurons</label>
+                </div>
+                <div class="answer-box" id="answer48" data-correct-answer="b" data-explanation="Bias allows shifting the activation function, giving the model flexibility to fit data better. Without bias, the decision boundary would always pass through origin.">
+                    Correct Answer: b<br><br><em>Explanation: Bias allows shifting the activation function, giving the model flexibility to fit data better. Without bias, the decision boundary would always pass through origin.</em>
+                </div>
+            </div>
+
+            <!-- Question 49 -->
+            <div class="question">
+                <h3>49. What is the main role of the weights in a neural network?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q49" value="a"> a) To normalize the output</label>
+                    <label><input type="radio" name="q49" value="b"> b) To determine the importance of connections between neurons</label>
+                    <label><input type="radio" name="q49" value="c"> c) Reduce the difference between predicted and actual output</label>
+                    <label><input type="radio" name="q49" value="d"> d) To reduce the loss function</label>
+                </div>
+                <div class="answer-box" id="answer49" data-correct-answer="b" data-explanation="Weights represent connection strengths between neurons. During training, they're adjusted to minimize error, learning which features are important.">
+                    Correct Answer: b<br><br><em>Explanation: Weights represent connection strengths between neurons. During training, they're adjusted to minimize error, learning which features are important.</em>
+                </div>
+            </div>
+
+            <!-- Question 50 -->
+            <div class="question">
+                <h3>50. What is the primary function of an activation function in a neural network?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q50" value="a"> a) To reduce the number of neurons</label>
+                    <label><input type="radio" name="q50" value="b"> b) To introduce non-linearity into the model</label>
+                    <label><input type="radio" name="q50" value="c"> c) To connect the input and output layers</label>
+                    <label><input type="radio" name="q50" value="d"> d) To initialize the weights and biases</label>
+                </div>
+                <div class="answer-box" id="answer50" data-correct-answer="b" data-explanation="Without non-linear activations, multiple layers would collapse to a single linear transformation, unable to learn complex patterns (universal approximation theorem).">
+                    Correct Answer: b<br><br><em>Explanation: Without non-linear activations, multiple layers would collapse to a single linear transformation, unable to learn complex patterns (universal approximation theorem).</em>
+                </div>
+            </div>
+
+            <!-- Question 51 -->
+            <div class="question">
+                <h3>51. Which of the following is NOT an activation function?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q51" value="a"> a) Sigmoid</label>
+                    <label><input type="radio" name="q51" value="b"> b) Binary Step</label>
+                    <label><input type="radio" name="q51" value="c"> c) ReLU</label>
+                    <label><input type="radio" name="q51" value="d"> d) Normalization</label>
+                </div>
+                <div class="answer-box" id="answer51" data-correct-answer="d" data-explanation="Normalization (e.g., batch norm) is a preprocessing/regularization technique, not an activation function. Activation functions transform neuron outputs non-linearly.">
+                    Correct Answer: d<br><br><em>Explanation: Normalization (e.g., batch norm) is a preprocessing/regularization technique, not an activation function. Activation functions transform neuron outputs non-linearly.</em>
+                </div>
+            </div>
+
+            <!-- Question 52 -->
+            <div class="question">
+                <h3>52. The function \( f(x) = \frac{1}{1+e^{-x}} \) is known as:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q52" value="a"> a) ReLU</label>
+                    <label><input type="radio" name="q52" value="b"> b) Sigmoid</label>
+                    <label><input type="radio" name="q52" value="c"> c) TanH</label>
+                    <label><input type="radio" name="q52" value="d"> d) Step Function</label>
+                </div>
+                <div class="answer-box" id="answer52" data-correct-answer="b" data-explanation="Sigmoid (logistic function) outputs values between 0 and 1, useful for probability estimation. Prone to vanishing gradients in deep networks.">
+                    Correct Answer: b<br><br><em>Explanation: Sigmoid (logistic function) outputs values between 0 and 1, useful for probability estimation. Prone to vanishing gradients in deep networks.</em>
+                </div>
+            </div>
+
+            <!-- Question 53 -->
+            <div class="question">
+                <h3>53. In a Perceptron, what happens when the predicted output does not match the actual output?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q53" value="a"> a) No changes to the weights</label>
+                    <label><input type="radio" name="q53" value="b"> b) The weights are updated</label>
+                    <label><input type="radio" name="q53" value="c"> c) The model stops training</label>
+                    <label><input type="radio" name="q53" value="d"> d) It reduces the output value</label>
+                </div>
+                <div class="answer-box" id="answer53" data-correct-answer="b" data-explanation="Perceptron learning rule: if misclassified, adjust weights: w = w + η(y - ŷ)x. η is learning rate, y is true label, ŷ is prediction.">
+                    Correct Answer: b<br><br><em>Explanation: Perceptron learning rule: if misclassified, adjust weights: w = w + η(y - ŷ)x. η is learning rate, y is true label, ŷ is prediction.</em>
+                </div>
+            </div>
+
+            <!-- Question 54 -->
+            <div class="question">
+                <h3>54. What does a perceptron consist of?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q54" value="a"> a) Hidden layer only</label>
+                    <label><input type="radio" name="q54" value="b"> b) Output layer only</label>
+                    <label><input type="radio" name="q54" value="c"> c) Input layer and output layer</label>
+                    <label><input type="radio" name="q54" value="d"> d) Input, hidden, and output layers</label>
+                </div>
+                <div class="answer-box" id="answer54" data-correct-answer="c" data-explanation="A single-layer perceptron has input nodes directly connected to output node(s) with no hidden layers. Limited to linearly separable problems.">
+                    Correct Answer: c<br><br><em>Explanation: A single-layer perceptron has input nodes directly connected to output node(s) with no hidden layers. Limited to linearly separable problems.</em>
+                </div>
+            </div>
+
+            <!-- Question 55 -->
+            <div class="question">
+                <h3>55. In which of the following neural networks is the data passed in a forward direction through multiple layers?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q55" value="a"> a) Convolutional Neural Network</label>
+                    <label><input type="radio" name="q55" value="b"> b) Recurrent Neural Network</label>
+                    <label><input type="radio" name="q55" value="c"> c) Feedforward Neural Network</label>
+                    <label><input type="radio" name="q55" value="d"> d) Perceptron</label>
+                </div>
+                <div class="answer-box" id="answer55" data-correct-answer="c" data-explanation="Feedforward networks pass information forward from input to output without cycles. Includes MLPs (multi-layer perceptrons) but not RNNs which have loops.">
+                    Correct Answer: c<br><br><em>Explanation: Feedforward networks pass information forward from input to output without cycles. Includes MLPs (multi-layer perceptrons) but not RNNs which have loops.</em>
+                </div>
+            </div>
+
+            <!-- Question 56 -->
+            <div class="question">
+                <h3>56. What is the key difference between a multi-layer perceptron and a single-layer perceptron?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q56" value="a"> a) A multi-layer perceptron has hidden layers</label>
+                    <label><input type="radio" name="q56" value="b"> b) A multi-layer perceptron uses a linear activation function</label>
+                    <label><input type="radio" name="q56" value="c"> c) A multi-layer perceptron has no output layer</label>
+                    <label><input type="radio" name="q56" value="d"> d) A multi-layer perceptron is faster</label>
+                </div>
+                <div class="answer-box" id="answer56" data-correct-answer="a" data-explanation="MLPs have one or more hidden layers between input and output, enabling them to learn non-linear decision boundaries and solve XOR-like problems.">
+                    Correct Answer: a<br><br><em>Explanation: MLPs have one or more hidden layers between input and output, enabling them to learn non-linear decision boundaries and solve XOR-like problems.</em>
+                </div>
+            </div>
+
+            <!-- Question 57 -->
+            <div class="question">
+                <h3>57. In a multi-layer perceptron (MLP), which activation function is used in every node?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q57" value="a"> a) ReLU</label>
+                    <label><input type="radio" name="q57" value="b"> b) TanH</label>
+                    <label><input type="radio" name="q57" value="c"> c) Sigmoid</label>
+                    <label><input type="radio" name="q57" value="d"> d) Step Function</label>
+                </div>
+                <div class="answer-box" id="answer57" data-correct-answer="c" data-explanation="Traditional MLPs used sigmoid in hidden layers (though modern networks often use ReLU). The key is any non-linear activation enables universal approximation.">
+                    Correct Answer: c<br><br><em>Explanation: Traditional MLPs used sigmoid in hidden layers (though modern networks often use ReLU). The key is any non-linear activation enables universal approximation.</em>
+                </div>
+            </div>
+
+            <!-- Question 58 -->
+            <div class="question">
+                <h3>58. Which type of neural network is specifically used for computer vision tasks such as image recognition?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q58" value="a"> a) Perceptron</label>
+                    <label><input type="radio" name="q58" value="b"> b) Feedforward neural network</label>
+                    <label><input type="radio" name="q58" value="c"> c) Convolutional neural network (CNN)</label>
+                    <label><input type="radio" name="q58" value="d"> d) Recurrent neural network (RNN)</label>
+                </div>
+                <div class="answer-box" id="answer58" data-correct-answer="c" data-explanation="CNNs use convolutional layers to preserve spatial relationships and share parameters, making them highly effective for image data.">
+                    Correct Answer: c<br><br><em>Explanation: CNNs use convolutional layers to preserve spatial relationships and share parameters, making them highly effective for image data.</em>
+                </div>
+            </div>
+
+            <!-- Question 59 -->
+            <div class="question">
+                <h3>59. In a CNN, what does the kernel filter do?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q59" value="a"> a) It increases the resolution</label>
+                    <label><input type="radio" name="q59" value="b"> b) It extracts features from the image</label>
+                    <label><input type="radio" name="q59" value="c"> c) It down-samples the image</label>
+                    <label><input type="radio" name="q59" value="d"> d) It predicts the output</label>
+                </div>
+                <div class="answer-box" id="answer59" data-correct-answer="b" data-explanation="Kernels (filters) perform convolution operations to detect features like edges, textures, or patterns at different locations in the input.">
+                    Correct Answer: b<br><br><em>Explanation: Kernels (filters) perform convolution operations to detect features like edges, textures, or patterns at different locations in the input.</em>
+                </div>
+            </div>
+
+            <!-- Question 60 -->
+            <div class="question">
+                <h3>60. In a CNN, how does a kernel filter move over the input data?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q60" value="a"> a) It moves the window one step forward or downward to capture all details</label>
+                    <label><input type="radio" name="q60" value="b"> b) It moves multiple steps at once</label>
+                    <label><input type="radio" name="q60" value="c"> c) It move the window multiple steps to capture main features and reduce output size</label>
+                    <label><input type="radio" name="q60" value="d"> d) It only moves diagonally</label>
+                </div>
+                <div class="answer-box" id="answer60" data-correct-answer="a" data-explanation="By default, stride=1 means the kernel slides one pixel at a time (horizontally then vertically), producing a detailed feature map.">
+                    Correct Answer: a<br><br><em>Explanation: By default, stride=1 means the kernel slides one pixel at a time (horizontally then vertically), producing a detailed feature map.</em>
+                </div>
+            </div>
+
+            <!-- Question 61 -->
+            <div class="question">
+                <h3>61. What is the purpose of a stride filter in CNN?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q61" value="a"> a) To move the window one step at a time</label>
+                    <label><input type="radio" name="q61" value="b"> b) To move the window one step forward or downward to capture all details</label>
+                    <label><input type="radio" name="q61" value="c"> c) To move the window multiple steps to capture main features and reduce output size</label>
+                    <label><input type="radio" name="q61" value="d"> d) To increase the number of kernels</label>
+                </div>
+                <div class="answer-box" id="answer61" data-correct-answer="c" data-explanation="Stride > 1 skips pixels, reducing feature map size and computational cost while capturing broader patterns (trade-off between detail and efficiency).">
+                    Correct Answer: c<br><br><em>Explanation: Stride > 1 skips pixels, reducing feature map size and computational cost while capturing broader patterns (trade-off between detail and efficiency).</em>
+                </div>
+            </div>
+
+            <!-- Question 62 -->
+            <div class="question">
+                <h3>62. The purpose of a Convolutional Neural Network (CNN) is to handle?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q62" value="a"> a) Grid-like matrix datasets</label>
+                    <label><input type="radio" name="q62" value="b"> b) Sequential data</label>
+                    <label><input type="radio" name="q62" value="c"> c) Numerical data</label>
+                    <label><input type="radio" name="q62" value="d"> d) None</label>
+                </div>
+                <div class="answer-box" id="answer62" data-correct-answer="a" data-explanation="CNNs excel at data with grid structure: images (2D grids of pixels), time series (1D), or volumetric data (3D). They exploit spatial locality.">
+                    Correct Answer: a<br><br><em>Explanation: CNNs excel at data with grid structure: images (2D grids of pixels), time series (1D), or volumetric data (3D). They exploit spatial locality.</em>
+                </div>
+            </div>
+
+            <!-- Question 63 -->
+            <div class="question">
+                <h3>63. In the context of CNNs, what does the pooling layer do?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q63" value="a"> a) Applies filters to extract features</label>
+                    <label><input type="radio" name="q63" value="b"> b) Down samples the image to reduce computational cost</label>
+                    <label><input type="radio" name="q63" value="c"> c) It will converts the feature map into a single column</label>
+                    <label><input type="radio" name="q63" value="d"> d) Activates neurons</label>
+                </div>
+                <div class="answer-box" id="answer63" data-correct-answer="b" data-explanation="Pooling (max/average) reduces spatial dimensions, providing translation invariance and decreasing parameters to prevent overfitting.">
+                    Correct Answer: b<br><br><em>Explanation: Pooling (max/average) reduces spatial dimensions, providing translation invariance and decreasing parameters to prevent overfitting.</em>
+                </div>
+            </div>
+
+            <!-- Question 64 -->
+            <div class="question">
+                <h3>64. What is the term for the step where a CNN converts the feature map into a single column?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q64" value="a"> a) Flattening</label>
+                    <label><input type="radio" name="q64" value="b"> b) Convolution</label>
+                    <label><input type="radio" name="q64" value="c"> c) Pooling</label>
+                    <label><input type="radio" name="q64" value="d"> d) Normalization</label>
+                </div>
+                <div class="answer-box" id="answer64" data-correct-answer="a" data-explanation="Flattening reshapes the 2D/3D feature maps into a 1D vector to feed into fully connected layers for final classification/regression.">
+                    Correct Answer: a<br><br><em>Explanation: Flattening reshapes the 2D/3D feature maps into a 1D vector to feed into fully connected layers for final classification/regression.</em>
+                </div>
+            </div>
+
+            <!-- Question 65 -->
+            <div class="question">
+                <h3>65. Which formula is used to calculate the feature map size when no stride is applied?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q65" value="a"> a) \( (Input + Kernel) + 1 \)</label>
+                    <label><input type="radio" name="q65" value="b"> b) \( (Input - Kernel) \times 2 \)</label>
+                    <label><input type="radio" name="q65" value="c"> c) \( (Input - Kernel) + 1 \)</label>
+                    <label><input type="radio" name="q65" value="d"> d) \( Input \times Kernel \)</label>
+                </div>
+                <div class="answer-box" id="answer65" data-correct-answer="c" data-explanation="Input = 7, Kernel = 3<br>
+                    Feature Map Size = (7 - 3) + 1 = 5 → 5 * 5">
+                    Correct Answer: c<br><br><em>Explanation: Input = 7, Kernel = 3<br>
+                    Feature Map Size = (7 - 3) + 1 = 5 → 5 * 5</em>
+                </div>
+            </div>
+
+            <!-- Question 66 -->
+            <div class="question">
+                <h3>66. Which formula is used to calculate the feature map size when stride is applied?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q66" value="a"> a) \( (Input + Kernel) + 1 \)</label>
+                    <label><input type="radio" name="q66" value="b"> b) \( (Input - Kernel) \times Stride \)</label>
+                    <label><input type="radio" name="q66" value="c"> c) \( \frac{Input - Kernel}{Stride} + 1 \)</label>
+                    <label><input type="radio" name="q66" value="d"> d) \( Input \times Kernel \)</label>
+                </div>
+                <div class="answer-box" id="answer66" data-correct-answer="c" data-explanation="Input = 7, Kernel = 3, Stride = 2<br>
+                    Feature Map Size = \frac{7 - 3}{2} + 1 = 3 → 3 * 3">
+                    Correct Answer: c<br><br><em>Explanation: Input = 7, Kernel = 3, Stride = 2<br>
+                    Feature Map Size = \frac{7 - 3}{2} + 1 = 3 → 3 * 3</em>
+                </div>
+            </div>
+
+            <!-- Question 67 -->
+            <div class="question">
+                <h3>67. What is the purpose of padding filter in CNNs?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q67" value="a"> a) To make the computation faster</label>
+                    <label><input type="radio" name="q67" value="b"> b) To avoid losing information at the borders of the input image</label>
+                    <label><input type="radio" name="q67" value="c"> c) To reduce the size of the feature map</label>
+                    <label><input type="radio" name="q67" value="d"> d) To add extra neurons to the input layer</label>
+                </div>
+                <div class="answer-box" id="answer67" data-correct-answer="b" data-explanation="Padding adds zeros (or other values) around the input to preserve spatial dimensions or ensure border pixels are considered equally.">
+                    Correct Answer: b<br><br><em>Explanation: Padding adds zeros (or other values) around the input to preserve spatial dimensions or ensure border pixels are considered equally.</em>
+                </div>
+            </div>
+
+            <!-- Question 68 -->
+            <div class="question">
+                <h3>68. Which of the following is true about Average Pooling in CNN?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q68" value="a"> a) It picks the largest value in each patch</label>
+                    <label><input type="radio" name="q68" value="b"> b) It increases the size of the feature map</label>
+                    <label><input type="radio" name="q68" value="c"> c) It computes the average value of each patch</label>
+                    <label><input type="radio" name="q68" value="d"> d) It removes the border pixels</label>
+                </div>
+                <div class="answer-box" id="answer68" data-correct-answer="c" data-explanation="Average pooling takes the mean of values in the pooling window, producing smoother feature maps than max pooling.">
+                    Correct Answer: c<br><br><em>Explanation: Average pooling takes the mean of values in the pooling window, producing smoother feature maps than max pooling.</em>
+                </div>
+            </div>
+
+            <!-- Question 69 -->
+            <div class="question">
+                <h3>69. Which of the following is true about Max Pooling in CNN?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q69" value="a"> a) It averages the features in each patch</label>
+                    <label><input type="radio" name="q69" value="b"> b) It increases the resolution of the image</label>
+                    <label><input type="radio" name="q69" value="c"> c) It selects the largest value in each patch</label>
+                    <label><input type="radio" name="q69" value="d"> d) None of the above</label>
+                </div>
+                <div class="answer-box" id="answer69" data-correct-answer="c" data-explanation="Max pooling retains the most activated feature (largest value) in each window, providing translation invariance and preserving strong features.">
+                    Correct Answer: c<br><br><em>Explanation: Max pooling retains the most activated feature (largest value) in each window, providing translation invariance and preserving strong features.</em>
+                </div>
+            </div>
+
+            <!-- Question 70 -->
+            <div class="question">
+                <h3>70. What is the main feature of a Recurrent Neural Network (RNN)?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q70" value="a"> a) It has multiple convolutional layers</label>
+                    <label><input type="radio" name="q70" value="b"> b) It feeds the previous output as input to the current step</label>
+                    <label><input type="radio" name="q70" value="c"> c) It uses max pooling to reduce dimensions</label>
+                    <label><input type="radio" name="q70" value="d"> d) It does not process sequences</label>
+                </div>
+                <div class="answer-box" id="answer70" data-correct-answer="b" data-explanation="RNNs have loops allowing information persistence through hidden states, making them suitable for sequential data like time series or text.">
+                    Correct Answer: b<br><br><em>Explanation: RNNs have loops allowing information persistence through hidden states, making them suitable for sequential data like time series or text.</em>
+                </div>
+            </div>
+
+            <!-- Question 71 -->
+            <div class="question">
+                <h3>71. Which unit in an RNN maintains the hidden state?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q71" value="a"> a) Convolutional Neuron</label>
+                    <label><input type="radio" name="q71" value="b"> b) Pooling Unit</label>
+                    <label><input type="radio" name="q71" value="c"> c) Recurrent Unit / Neuron</label>
+                    <label><input type="radio" name="q71" value="d"> d) Input Layer Neuron</label>
+                </div>
+                <div class="answer-box" id="answer71" data-correct-answer="c" data-explanation="Recurrent neurons maintain a hidden state that gets updated at each timestep, capturing information from previous sequence elements.">
+                    Correct Answer: c<br><br><em>Explanation: Recurrent neurons maintain a hidden state that gets updated at each timestep, capturing information from previous sequence elements.</em>
+                </div>
+            </div>
+
+            <!-- Question 72 -->
+            <div class="question">
+                <h3>72. Why are LSTM and GRU used in RNNs?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q72" value="a"> a) To reduce the number of layers</label>
+                    <label><input type="radio" name="q72" value="b"> b) To increase image resolution</label>
+                    <label><input type="radio" name="q72" value="c"> c) To handle long-term dependencies better</label>
+                    <label><input type="radio" name="q72" value="d"> d) To replace convolutional layers</label>
+                </div>
+                <div class="answer-box" id="answer72" data-correct-answer="c" data-explanation="LSTM (Long Short-Term Memory) and GRU (Gated Recurrent Unit) use gating mechanisms to mitigate vanishing gradient problem, allowing learning of long-range dependencies.">
+                    Correct Answer: c<br><br><em>Explanation: LSTM (Long Short-Term Memory) and GRU (Gated Recurrent Unit) use gating mechanisms to mitigate vanishing gradient problem, allowing learning of long-range dependencies.</em>
+                </div>
+            </div>
+
+            <!-- Question 73 -->
+            <div class="question">
+                <h3>73. Which of the following is an important feature of a Recurrent Neural Network (RNN)?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q73" value="a"> a) It uses a simple feedforward architecture</label>
+                    <label><input type="radio" name="q73" value="b"> b) It can process sequential data by maintaining a hidden state</label>
+                    <label><input type="radio" name="q73" value="c"> c) It is used mainly for image processing</label>
+                    <label><input type="radio" name="q73" value="d"> d) It does not require a backpropagation algorithm</label>
+                </div>
+                <div class="answer-box" id="answer73" data-correct-answer="b" data-explanation="The hidden state acts as memory, allowing RNNs to capture temporal dynamics in sequences like text, speech, or time-series data.">
+                    Correct Answer: b<br><br><em>Explanation: The hidden state acts as memory, allowing RNNs to capture temporal dynamics in sequences like text, speech, or time-series data.</em>
+                </div>
+            </div>
+
+            <!-- Question 74 -->
+            <div class="question">
+                <h3>74. Which of the following are applications of Recurrent Neural Networks (RNNs)?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q74" value="a"> a) Language modeling and generating text</label>
+                    <label><input type="radio" name="q74" value="b"> b) Speech recognition and machine translation</label>
+                    <label><input type="radio" name="q74" value="c"> c) Image recognition, face detection, and time series forecasting</label>
+                    <label><input type="radio" name="q74" value="d"> d) All of the above</label>
+                </div>
+                <div class="answer-box" id="answer74" data-correct-answer="d" data-explanation="RNNs excel at sequential tasks: NLP (language modeling), speech processing, time series forecasting. CNNs are better for image tasks, but hybrid models exist.">
+                    Correct Answer: d<br><br><em>Explanation: RNNs excel at sequential tasks: NLP (language modeling), speech processing, time series forecasting. CNNs are better for image tasks, but hybrid models exist.</em>
+                </div>
+            </div>
+
+            <!-- Question 75 -->
+            <div class="question">
+                <h3>75. What is the main purpose of backpropagation in a neural network?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q75" value="a"> a) To computes the activations of neurons in the network</label>
+                    <label><input type="radio" name="q75" value="b"> b) To adjust weights and biases to minimize the cost function</label>
+                    <label><input type="radio" name="q75" value="c"> c) To initializes the weights of the neural network</label>
+                    <label><input type="radio" name="q75" value="d"> d) To applies non-linearity to the output</label>
+                </div>
+                <div class="answer-box" id="answer75" data-correct-answer="b" data-explanation="Backpropagation uses chain rule to compute gradients of loss with respect to each parameter, enabling gradient descent optimization.">
+                    Correct Answer: b<br><br><em>Explanation: Backpropagation uses chain rule to compute gradients of loss with respect to each parameter, enabling gradient descent optimization.</em>
+                </div>
+            </div>
+
+            <!-- Question 76 -->
+            <div class="question">
+                <h3>76. Which optimization algorithms are commonly used with backpropagation?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q76" value="a"> a) K-Means and DBSCAN</label>
+                    <label><input type="radio" name="q76" value="b"> b) Gradient Descent and Stochastic Gradient Descent</label>
+                    <label><input type="radio" name="q76" value="c"> c) Max Pooling and Average Pooling</label>
+                    <label><input type="radio" name="q76" value="d"> d) ReLU and Sigmoid</label>
+                </div>
+                <div class="answer-box" id="answer76" data-correct-answer="b" data-explanation="Gradient descent variants (SGD, Adam, RMSprop) use backpropagation gradients to update weights iteratively, minimizing the loss function.">
+                    Correct Answer: b<br><br><em>Explanation: Gradient descent variants (SGD, Adam, RMSprop) use backpropagation gradients to update weights iteratively, minimizing the loss function.</em>
+                </div>
+            </div>
+
+            <!-- Question 77 -->
+            <div class="question">
+                <h3>77. What is backpropagation in a neural network?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q77" value="a"> a) A method to increase input size</label>
+                    <label><input type="radio" name="q77" value="b"> b) A way to apply activation functions</label>
+                    <label><input type="radio" name="q77" value="c"> c) A common method for training the network</label>
+                    <label><input type="radio" name="q77" value="d"> d) A type of pooling operation</label>
+                </div>
+                <div class="answer-box" id="answer77" data-correct-answer="c" data-explanation="Backpropagation is the core training algorithm for neural networks, propagating error gradients backward through the network to update weights.">
+                    Correct Answer: c<br><br><em>Explanation: Backpropagation is the core training algorithm for neural networks, propagating error gradients backward through the network to update weights.</em>
+                </div>
+            </div>
+
+            <!-- Question 78 -->
+            <div class="question">
+                <h3>78. Probabilistic modeling is mainly used to:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q78" value="a"> a) Ignore uncertainty in data</label>
+                    <label><input type="radio" name="q78" value="b"> b) Predict and reason while considering uncertainty</label>
+                    <label><input type="radio" name="q78" value="c"> c) Replace data with fixed rules</label>
+                    <label><input type="radio" name="q78" value="d"> d) Avoid using statistics</label>
+                </div>
+                <div class="answer-box" id="answer78" data-correct-answer="b" data-explanation="Probabilistic models (Bayesian networks, Gaussian processes) provide uncertainty estimates along with predictions, crucial for risk-sensitive applications.">
+                    Correct Answer: b<br><br><em>Explanation: Probabilistic models (Bayesian networks, Gaussian processes) provide uncertainty estimates along with predictions, crucial for risk-sensitive applications.</em>
+                </div>
+            </div>
+
+            <!-- Question 79 -->
+            <div class="question">
+                <h3>79. Which term describes: Model predicts positive, and it's actually positive?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q79" value="a"> a) False Positive (FP)</label>
+                    <label><input type="radio" name="q79" value="b"> b) True Negative (TN)</label>
+                    <label><input type="radio" name="q79" value="c"> c) True Positive (TP)</label>
+                    <label><input type="radio" name="q79" value="d"> d) False Negative (FN)</label>
+                </div>
+                <div class="answer-box" id="answer79" data-correct-answer="c" data-explanation="True Positive: correct prediction of the positive class. Example: correctly identifying a disease in a patient who has it.">
+                    Correct Answer: c<br><br><em>Explanation: True Positive: correct prediction of the positive class. Example: correctly identifying a disease in a patient who has it.</em>
+                </div>
+            </div>
+
+            <!-- Question 80 -->
+            <div class="question">
+                <h3>80. Which term describes: Model predicts positive, but it's actually negative?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q80" value="a"> a) True Positive (TP)</label>
+                    <label><input type="radio" name="q80" value="b"> b) False Positive (FP)</label>
+                    <label><input type="radio" name="q80" value="c"> c) True Negative (TN)</label>
+                    <label><input type="radio" name="q80" value="d"> d) False Negative (FN)</label>
+                </div>
+                <div class="answer-box" id="answer80" data-correct-answer="b" data-explanation="False Positive: Type I error. Example: diagnosing a healthy person as sick (false alarm).">
+                    Correct Answer: b<br><br><em>Explanation: False Positive: Type I error. Example: diagnosing a healthy person as sick (false alarm).</em>
+                </div>
+            </div>
+
+            <!-- Question 81 -->
+            <div class="question">
+                <h3>81. If there are many True Negatives (TN), it means the model predicts correctly.</h3>
+                <div class="options">
+                    <label><input type="radio" name="q81" value="a"> a) True</label>
+                    <label><input type="radio" name="q81" value="b"> b) False</label>
+                </div>
+                <div class="answer-box" id="answer81" data-correct-answer="a" data-explanation="True Negatives are correct predictions of the negative class. High TN indicates good performance on negative instances.">
+                    Correct Answer: a<br><br><em>Explanation: True Negatives are correct predictions of the negative class. High TN indicates good performance on negative instances.</em>
+                </div>
+            </div>
+
+            <!-- Question 82 -->
+            <div class="question">
+                <h3>82. What is the key characteristic of nonlinear regression?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q82" value="a"> a) It fits data using a straight line.</label>
+                    <label><input type="radio" name="q82" value="b"> b) It fits data using a generated curve.</label>
+                    <label><input type="radio" name="q82" value="c"> c) It uses only linear equations.</label>
+                    <label><input type="radio" name="q82" value="d"> d) It is used for categorical data only.</label>
+                </div>
+                <div class="answer-box" id="answer82" data-correct-answer="b" data-explanation="Nonlinear regression models relationships that can't be expressed as straight lines, using curves (polynomial, exponential, logarithmic, etc.).">
+                    Correct Answer: b<br><br><em>Explanation: Nonlinear regression models relationships that can't be expressed as straight lines, using curves (polynomial, exponential, logarithmic, etc.).</em>
+                </div>
+            </div>
+
+            <!-- Question 83 -->
+            <div class="question">
+                <h3>83. Which of the following is an example of nonlinear regression?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q83" value="a"> a) \( Y = 3X + 2 \)</label>
+                    <label><input type="radio" name="q83" value="b"> b) \( Y = 2X^2 + 3X + 1 \)</label>
+                    <label><input type="radio" name="q83" value="c"> c) \( Y = 1.5X - 0.2 \)</label>
+                    <label><input type="radio" name="q83" value="d"> d) \( Y = 4X + 3 \)</label>
+                </div>
+                <div class="answer-box" id="answer83" data-correct-answer="b" data-explanation="Polynomial equations (like quadratic) are nonlinear in the parameters relative to the input variables, producing curved relationships.">
+                    Correct Answer: b<br><br><em>Explanation: Polynomial equations (like quadratic) are nonlinear in the parameters relative to the input variables, producing curved relationships.</em>
+                </div>
+            </div>
+
+            <!-- Question 84 -->
+            <div class="question">
+                <h3>84. What is the main difference between linear and nonlinear regression?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q84" value="a"> a) Linear regression uses curves, while nonlinear regression uses straight lines.</label>
+                    <label><input type="radio" name="q84" value="b"> b) Linear regression fits data using a straight line, while nonlinear regression uses a curve.</label>
+                    <label><input type="radio" name="q84" value="c"> c) Nonlinear regression is used for categorical data only.</label>
+                    <label><input type="radio" name="q84" value="d"> d) There is no difference between linear and nonlinear regression.</label>
+                </div>
+                <div class="answer-box" id="answer84" data-correct-answer="b" data-explanation="Linear: y = β₀ + β₁x (straight line). Nonlinear: any functional form not linear in parameters (curves, more complex shapes).">
+                    Correct Answer: b<br><br><em>Explanation: Linear: y = β₀ + β₁x (straight line). Nonlinear: any functional form not linear in parameters (curves, more complex shapes).</em>
+                </div>
+            </div>
+
+            <!-- Question 85 -->
+            <div class="question">
+                <h3>85. What does "overfitting" refer to in the context of regression models?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q85" value="a"> a) The model performs well on new data but poorly on training data.</label>
+                    <label><input type="radio" name="q85" value="b"> b) The model performs poorly on both training and testing data.</label>
+                    <label><input type="radio" name="q85" value="c"> c) The model performs well on training data but poorly on new data</label>
+                    <label><input type="radio" name="q85" value="d"> d) The model is too simple to capture the patterns in the data.</label>
+                </div>
+                <div class="answer-box" id="answer85" data-correct-answer="c" data-explanation="Overfitting occurs when a model learns training noise/details too well, losing generalization ability. High variance, low bias.">
+                    Correct Answer: c<br><br><em>Explanation: Overfitting occurs when a model learns training noise/details too well, losing generalization ability. High variance, low bias.</em>
+                </div>
+            </div>
+
+            <!-- Question 86 -->
+            <div class="question">
+                <h3>86. What does "underfitting" refer to in the context of regression models?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q86" value="a"> a) The model performs well on new data but poorly on training data.</label>
+                    <label><input type="radio" name="q86" value="b"> b) The model performs poorly on both training and testing data.</label>
+                    <label><input type="radio" name="q86" value="c"> c) The model fits the training data too well, resulting in poor generalization.</label>
+                    <label><input type="radio" name="q86" value="d"> d) The model is too simple to capture the patterns in the data.</label>
+                </div>
+                <div class="answer-box" id="answer86" data-correct-answer="b" data-explanation="Underfitting: model is too simple to capture underlying patterns. High bias, low variance. Both training and test performance are poor.">
+                    Correct Answer: b<br><br><em>Explanation: Underfitting: model is too simple to capture underlying patterns. High bias, low variance. Both training and test performance are poor.</em>
+                </div>
+            </div>
+
+            <!-- Question 87 -->
+            <div class="question">
+                <h3>87. What is the main advantage of using Polynomial Regression?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q87" value="a"> a) It reduces training time</label>
+                    <label><input type="radio" name="q87" value="b"> b) It captures non-linear changes in data</label>
+                    <label><input type="radio" name="q87" value="c"> c) It always avoids overfitting</label>
+                    <label><input type="radio" name="q87" value="d"> d) It works only for linear data</label>
+                </div>
+                <div class="answer-box" id="answer87" data-correct-answer="b" data-explanation="Polynomial regression can model curved relationships by adding polynomial terms (x², x³, etc.) while remaining linear in parameters for estimation.">
+                    Correct Answer: b<br><br><em>Explanation: Polynomial regression can model curved relationships by adding polynomial terms (x², x³, etc.) while remaining linear in parameters for estimation.</em>
+                </div>
+            </div>
+
+            <!-- Question 88 -->
+            <div class="question">
+                <h3>88. Which combination usually indicates overfitting?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q88" value="a"> a) High Bias and Low Variance</label>
+                    <label><input type="radio" name="q88" value="b"> b) Low Bias and Low Variance</label>
+                    <label><input type="radio" name="q88" value="c"> c) Low Bias and High Variance</label>
+                    <label><input type="radio" name="q88" value="d"> d) High Bias and High Variance</label>
+                </div>
+                <div class="answer-box" id="answer88" data-correct-answer="c" data-explanation="Low bias (fits training well) + high variance (sensitive to fluctuations) = overfitting. The model is too complex relative to data.">
+                    Correct Answer: c<br><br><em>Explanation: Low bias (fits training well) + high variance (sensitive to fluctuations) = overfitting. The model is too complex relative to data.</em>
+                </div>
+            </div>
+
+            <!-- Question 89 -->
+            <div class="question">
+                <h3>89. Increasing the degree of a polynomial in regression may cause:</h3>
+                <div class="options">
+                    <label><input type="radio" name="q89" value="a"> a) Underfitting</label>
+                    <label><input type="radio" name="q89" value="b"> b) Overfitting</label>
+                    <label><input type="radio" name="q89" value="c"> c) Reduced variance</label>
+                    <label><input type="radio" name="q89" value="d"> d) Lower accuracy on training data</label>
+                </div>
+                <div class="answer-box" id="answer89" data-correct-answer="b" data-explanation="Higher polynomial degrees increase model complexity, potentially fitting noise in training data and reducing generalization (overfitting).">
+                    Correct Answer: b<br><br><em>Explanation: Higher polynomial degrees increase model complexity, potentially fitting noise in training data and reducing generalization (overfitting).</em>
+                </div>
+            </div>
+
+            <!-- Question 90 -->
+            <div class="question">
+                <h3>90. What is the target when choosing a polynomial degree?</h3>
+                <div class="options">
+                    <label><input type="radio" name="q90" value="a"> a) To make it as high as possible</label>
+                    <label><input type="radio" name="q90" value="b"> b) To fit the data nicely without overfitting</label>
+                    <label><input type="radio" name="q90" value="c"> c) To ensure bias is always high</label>
+                    <label><input type="radio" name="q90" value="d"> d) To ignore the curvature of the data</label>
+                </div>
+                <div class="answer-box" id="answer90" data-correct-answer="b" data-explanation="Goal: find simplest model (lowest degree) that captures essential patterns (bias-variance tradeoff). Use validation/cross-validation to select optimal degree.">
+                    Correct Answer: b<br><br><em>Explanation: Goal: find simplest model (lowest degree) that captures essential patterns (bias-variance tradeoff). Use validation/cross-validation to select optimal degree.</em>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slides Section -->
+        <div class="slides-section hidden" id="slides-section">
+            <div class="slides-header">
+                سلايدات المادة
+            </div>
+            
+            <div class="pdf-controls">
+                <button class="pdf-btn active" onclick="loadLecture(0)">
+                    <span>📄</span> Lecture 1
+                </button>
+                <button class="pdf-btn" onclick="loadLecture(1)">
+                    <span>📄</span> Lecture 2
+                </button>
+                <button class="pdf-btn" onclick="loadLecture(2)">
+                    <span>📄</span> Lecture 3
+                </button>
+                <button class="pdf-btn" onclick="loadLecture(3)">
+                    <span>📄</span> Lecture 4
+                </button>
+                <button class="pdf-btn" onclick="loadLecture(4)">
+                    <span>📄</span> Lecture 5
+                </button>
+                <button class="pdf-btn" onclick="loadLecture(5)">
+                    <span>📄</span> Lecture 6
+                </button>
+            </div>
+
+            <!-- Desktop PDF Viewer -->
+            <div class="pdf-viewer-container desktop-viewer">
+                <div class="pdf-viewer-header">
+                    <div class="pdf-viewer-title" id="pdf-title">Lecture 1</div>
+                    <div class="pdf-controls-small">
+                        <button class="pdf-nav-btn" onclick="downloadPdf()" title="Download">⤓</button>
+                    </div>
+                </div>
+                <div class="pdf-frame-container">
+                    <div class="pdf-loading" id="pdf-loading">
+                        <div class="pdf-loading-spinner"></div>
+                        <div class="pdf-loading-text">Loading PDF...</div>
+                    </div>
+                    <iframe class="pdf-frame" id="pdf-frame" src="Lecture1.pdf" frameborder="0"></iframe>
+                </div>
+            </div>
+
+            <!-- Mobile PDF List -->
+            <div class="mobile-pdf-list">
+                <!-- Lecture 1 -->
+                <div class="mobile-pdf-item">
+                    <div class="mobile-pdf-info">
+                        <div class="mobile-pdf-icon">📄</div>
+                        <div class="mobile-pdf-details">
+                            <div class="mobile-pdf-name">Lecture 1</div>
+                            <div class="mobile-pdf-size">PDF</div>
+                        </div>
+                    </div>
+                    <div class="mobile-pdf-actions">
+                        <button class="mobile-pdf-btn open-btn" onclick="openPdfMobile('Lecture1.pdf')">Open</button>
+                    </div>
+                </div>
+                
+                <!-- Lecture 2 -->
+                <div class="mobile-pdf-item">
+                    <div class="mobile-pdf-info">
+                        <div class="mobile-pdf-icon">📄</div>
+                        <div class="mobile-pdf-details">
+                            <div class="mobile-pdf-name">Lecture 2</div>
+                            <div class="mobile-pdf-size">PDF</div>
+                        </div>
+                    </div>
+                    <div class="mobile-pdf-actions">
+                        <button class="mobile-pdf-btn open-btn" onclick="openPdfMobile('Lecture2.pdf')">Open</button>
+                    </div>
+                </div>
+                
+                <!-- Lecture 3 -->
+                <div class="mobile-pdf-item">
+                    <div class="mobile-pdf-info">
+                        <div class="mobile-pdf-icon">📄</div>
+                        <div class="mobile-pdf-details">
+                            <div class="mobile-pdf-name">Lecture 3</div>
+                            <div class="mobile-pdf-size">PDF</div>
+                        </div>
+                    </div>
+                    <div class="mobile-pdf-actions">
+                        <button class="mobile-pdf-btn open-btn" onclick="openPdfMobile('Lecture3.pdf')">Open</button>
+                    </div>
+                </div>
+                
+                <!-- Lecture 4 -->
+                <div class="mobile-pdf-item">
+                    <div class="mobile-pdf-info">
+                        <div class="mobile-pdf-icon">📄</div>
+                        <div class="mobile-pdf-details">
+                            <div class="mobile-pdf-name">Lecture 4</div>
+                            <div class="mobile-pdf-size">PDF</div>
+                        </div>
+                    </div>
+                    <div class="mobile-pdf-actions">
+                        <button class="mobile-pdf-btn open-btn" onclick="openPdfMobile('Lecture4.pdf')">Open</button>
+                    </div>
+                </div>
+                
+                <!-- Lecture 5 -->
+                <div class="mobile-pdf-item">
+                    <div class="mobile-pdf-info">
+                        <div class="mobile-pdf-icon">📄</div>
+                        <div class="mobile-pdf-details">
+                            <div class="mobile-pdf-name">Lecture 5</div>
+                            <div class="mobile-pdf-size">PDF</div>
+                        </div>
+                    </div>
+                    <div class="mobile-pdf-actions">
+                        <button class="mobile-pdf-btn open-btn" onclick="openPdfMobile('Lecture5.pdf')">Open</button>
+                    </div>
+                </div>
+                
+                <!-- Lecture 6 -->
+                <div class="mobile-pdf-item">
+                    <div class="mobile-pdf-info">
+                        <div class="mobile-pdf-icon">📄</div>
+                        <div class="mobile-pdf-details">
+                            <div class="mobile-pdf-name">Lecture 6</div>
+                            <div class="mobile-pdf-size">PDF</div>
+                        </div>
+                    </div>
+                    <div class="mobile-pdf-actions">
+                        <button class="mobile-pdf-btn open-btn" onclick="openPdfMobile('Lecture6.pdf')">Open</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button class="btn" onclick="toggleSlides()">
+                    <span class="btn-icon">←</span> العودة إلى الأسئلة
+                </button>
+            </div>
+        </div>
+
+<div class="footer-note">
+            دعواتكم للمساعد الخفي والعاملين على الموقع بالتوفيق والسداد والزوجة الصالحة
+        </div>
+    </div>
+
+    <script>
+        // Quiz Data - Answers for all 90 questions
+        const correctAnswers = {
+            q1: 'b', q2: 'd', q3: 'a', q4: 'a', q5: 'a', q6: 'd', q7: 'b',
+            q8: 'a', q9: 'd', q10: 'a', q11: 'b', q12: 'a', q13: 'c',
+            q14: 'c', q15: 'c', q16: 'a', q17: 'b', q18: 'c', q19: 'd',
+            q20: 'a', q21: 'c', q22: 'b', q23: 'a', q24: 'b', q25: 'c',
+            q26: 'a', q27: 'c', q28: 'b', q29: 'b', q30: 'b', q31: 'b',
+            q32: 'b', q33: 'd', q34: 'b', q35: 'b', q36: 'b', q37: 'c',
+            q38: 'c', q39: 'c', q40: 'd', q41: 'c', q42: 'c', q43: 'b',
+            q44: 'c', q45: 'c', q46: 'a', q47: 'c', q48: 'b', q49: 'b',
+            q50: 'b', q51: 'd', q52: 'b', q53: 'b', q54: 'c', q55: 'c',
+            q56: 'a', q57: 'c', q58: 'c', q59: 'b', q60: 'a', q61: 'c',
+            q62: 'a', q63: 'b', q64: 'a', q65: 'c', q66: 'c', q67: 'b',
+            q68: 'c', q69: 'c', q70: 'b', q71: 'c', q72: 'c', q73: 'b',
+            q74: 'd', q75: 'b', q76: 'b', q77: 'c', q78: 'b', q79: 'c',
+            q80: 'b', q81: 'a', q82: 'b', q83: 'b', q84: 'b', q85: 'c',
+            q86: 'b', q87: 'b', q88: 'c', q89: 'b', q90: 'b'
+        };
+
+        // Lectures data
+        const lectures = [
+            { name: "Lecture 1", pdf: "Lecture1.pdf" },
+            { name: "Lecture 2", pdf: "Lecture2.pdf" },
+            { name: "Lecture 3", pdf: "Lecture3.pdf" },
+            { name: "Lecture 4", pdf: "Lecture4.pdf" },
+            { name: "Lecture 5", pdf: "Lecture5.pdf" },
+            { name: "Lecture 6", pdf: "Lecture6.pdf" }
+        ];
+
+        let currentPdf = 'Lecture1.pdf';
+        let currentLectureIndex = 0;
+
+        // Quiz functionality
+        function resetQuiz() {
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(radio => radio.checked = false);
+
+            const answerBoxes = document.querySelectorAll('.answer-box');
+            answerBoxes.forEach(box => {
+                box.style.display = 'none';
+                box.classList.remove('correct', 'incorrect');
+                const originalHTML = box.getAttribute('data-original-html') || box.innerHTML;
+                box.innerHTML = originalHTML;
+            });
+
+            updateProgress();
+        }
+
+        function showAllAnswers() {
+            const questions = document.querySelectorAll('.question');
+            
+            questions.forEach(questionContainer => {
+                const answerBox = questionContainer.querySelector('.answer-box');
+                if (!answerBox) return;
+
+                const correctAnswer = answerBox.getAttribute('data-correct-answer');
+                const explanation = answerBox.getAttribute('data-explanation') || '';
+                
+                const correctInput = questionContainer.querySelector(`input[value="${correctAnswer}"]`);
+                if (correctInput) correctInput.checked = true;
+
+                answerBox.innerHTML = `
+                    ✅ Correct Answer: ${correctAnswer}
+                    <div class="explanation-container">
+                        <div class="explanation-content" style="display:block;">
+                            ${explanation}
+                        </div>
+                    </div>
+                `;
+                answerBox.style.display = 'block';
+                answerBox.classList.add('correct');
+                answerBox.classList.remove('incorrect');
+            });
+            updateProgress();
+        }
+
+        function hideAllAnswers() {
+            const answerBoxes = document.querySelectorAll('.answer-box');
+            answerBoxes.forEach(box => {
+                box.style.display = 'none';
+                box.classList.remove('correct', 'incorrect');
+            });
+        }
+
+        function updateProgress() {
+            const radioButtons = document.querySelectorAll('input[type="radio"]:checked');
+            const answeredCount = radioButtons.length;
+            const progressPercent = Math.round((answeredCount / 90) * 100);
+            
+            document.getElementById('answered-count').textContent = answeredCount;
+            document.getElementById('quiz-progress').style.width = `${progressPercent}%`;
+        }
+
+        // Theme toggle
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+            
+            if(body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeToggle.innerHTML = '<span class="btn-icon">🌙</span> Dark Mode';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '<span class="btn-icon">☀️</span> Light Mode';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Slides toggle
+        let slidesVisible = false;
+        function toggleSlides() {
+            const slidesSection = document.getElementById('slides-section');
+            const slidesToggle = document.getElementById('slidesToggle');
+            const questionsSection = document.getElementById('questions-section');
+            
+            if(!slidesVisible) {
+                slidesSection.classList.remove('hidden');
+                questionsSection.style.display = 'none';
+                slidesToggle.innerHTML = '<span class="btn-icon">📝</span> الأسئلة';
+                slidesVisible = true;
+                slidesSection.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                slidesSection.classList.add('hidden');
+                questionsSection.style.display = 'block';
+                slidesToggle.innerHTML = '<span class="btn-icon">📚</span> سلايدات المادة';
+                slidesVisible = false;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // PDF functionality
+        function loadPdf(pdfFile, title) {
+            currentPdf = pdfFile;
+            
+            document.getElementById('pdf-title').textContent = title;
+            
+            const loading = document.getElementById('pdf-loading');
+            const frame = document.getElementById('pdf-frame');
+            
+            loading.style.display = 'flex';
+            frame.style.display = 'none';
+            
+            frame.src = pdfFile;
+            
+            frame.onload = function() {
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                    frame.style.display = 'block';
+                }, 500);
+            };
+        }
+
+        function loadLecture(index) {
+            currentLectureIndex = index;
+            const lecture = lectures[index];
+            
+            document.querySelectorAll('.pdf-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            loadPdf(lecture.pdf, lecture.name);
+        }
+
+        function downloadPdf() {
+            const link = document.createElement('a');
+            link.href = currentPdf;
+            link.download = currentPdf;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Mobile PDF functions
+        function openPdfMobile(pdfFile) {
+            window.open(pdfFile, '_blank');
+        }
+
+        // Event listeners for radio buttons
+        document.addEventListener('DOMContentLoaded', () => {
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    const questionNumber = e.target.name.substring(1);
+                    const answerBox = document.getElementById(`answer${questionNumber}`);
+                    const questionContainer = e.target.closest('.question');
+                    
+                    if (!answerBox.getAttribute('data-original-html')) {
+                        answerBox.setAttribute('data-original-html', answerBox.innerHTML);
+                    }
+                    
+                    const originalHTML = answerBox.getAttribute('data-original-html');
+                    const userAnswer = e.target.value;
+                    const correctAnswer = correctAnswers[`q${questionNumber}`];
+                    const explanation = answerBox.getAttribute('data-explanation') || '';
+
+                    questionContainer.classList.remove('answered-correct', 'answered-incorrect');
+
+                    if (userAnswer === correctAnswer) {
+                        answerBox.innerHTML = `
+                            ✅ Correct!
+                            <div class="explanation-container">
+                                <button class="btn-explanation" onclick="this.parentElement.querySelector('.explanation-content').style.display='block'; this.style.display='none';">
+                                    <span style="font-size:1.1em">💡</span> Show Explanation
+                                </button>
+                                <div class="explanation-content" style="display:none;">
+                                    ${explanation}
+                                </div>
+                            </div>
+                        `;
+                        answerBox.classList.add('correct');
+                        answerBox.classList.remove('incorrect');
+                    } else {
+                        answerBox.innerHTML = `
+                            ❌ Incorrect.
+                            <button class="btn-show-correct" onclick="this.nextElementSibling.style.display='block'; this.style.display='none';">
+                                Show Correct Choice
+                            </button>
+                            <div class="reveal-content" style="display:none; margin-top:10px;">
+                                <div style="margin-bottom:10px; font-weight:bold;">Correct Answer: ${correctAnswer}</div>
+                                <div class="explanation-content" style="display:block;">
+                                    ${explanation}
+                                </div>
+                            </div>
+                        `;
+                        answerBox.classList.add('incorrect');
+                        answerBox.classList.remove('correct');
+                    }
+                    answerBox.style.display = 'block';
+                    
+                    updateProgress();
+                });
+            });
+
+            // Initialize theme
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const themeToggle = document.getElementById('themeToggle');
+            
+            if(savedTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '<span class="btn-icon">☀️</span> Light Mode';
+            }
+            
+            // Store original HTML for all answer boxes
+            const answerBoxes = document.querySelectorAll('.answer-box');
+            answerBoxes.forEach(box => {
+                if (!box.getAttribute('data-original-html')) {
+                    box.setAttribute('data-original-html', box.innerHTML);
+                }
+            });
+            
+            // Initialize PDF viewer
+            const frame = document.getElementById('pdf-frame');
+            frame.onload = function() {
+                setTimeout(() => {
+                    document.getElementById('pdf-loading').style.display = 'none';
+                    frame.style.display = 'block';
+                }, 800);
+            };
+        });
+    </script>
+</body>
+</html>
